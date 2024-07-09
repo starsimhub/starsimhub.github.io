@@ -46,7 +46,7 @@ csf_y = cs_y(t_fine)
 
 # Plot the smoothed 12-point star with rounded inner points using cubic splines
 fig1 = plt.figure(figsize=(6, 6))
-plt.fill(csf_x, csf_y, "k")
+# plt.fill(csf_x, csf_y, "k")
 plt.axis("equal")
 plt.axis("off")
 plt.show()
@@ -86,17 +86,20 @@ def is_inside(x, y, csf_x, csf_y):
 
 
 npts = 1000
-px = np.random.rand(npts)*2-1
-py = np.random.rand(npts)*2-1
+p = sc.objdict()
+for k in ['x', 'y']:
+    p[k] = np.random.rand(npts)*2-1
+p.s = (1/(0.02+(p.x**2+p.y**2)**2))*5
+
 isin = []
-for ind,(ix,iy) in enumerate(zip(px,py)):
+for ind,(ix,iy) in enumerate(zip(p.x,p.y)):
     inside = is_inside(ix, iy, csf_x, csf_y)
     if inside:
         isin.append(ind)
 isin = np.array(isin)
 notin = np.setdiff1d(np.arange(npts), isin)
 
-plt.scatter(px[isin], py[isin], c='r')
-plt.scatter(px[notin], py[notin], c='b')
+plt.scatter(p.x[isin], p.y[isin], c='k', s=p.s[isin], alpha=0.5)
+# plt.scatter(px[notin], py[notin], c='b')
 
 
