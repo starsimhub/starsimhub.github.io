@@ -10,9 +10,7 @@ from scipy.interpolate import CubicSpline
 import pylab as plt
 sc.options(dpi=200)
 
-arms = 10
-radius1 = 1
-radius2 = 0.4
+arms = 12
 ninterp = 1000
 rf = 0.15
 
@@ -51,11 +49,12 @@ def make_splines(arms, radius1, radius2, ninterp, **kw):
 
 # Plot the smoothed 12-point star with rounded inner points using cubic splines
 plot1 = True
+v = 0
 if plot1:
-    inds, csf_x, csf_y = make_splines(arms, radius1, radius2, ninterp, rf=rf, off=np.pi/arms)
+    inds, csf_x, csf_y = make_splines(arms, 1.0, 0.5, ninterp, rf=rf, off=v*np.pi/arms)
     fig1 = plt.figure(figsize=(6, 6))
     plt.fill(csf_x, csf_y, "k")
-    inds, csf_x, csf_y = make_splines(arms, 0.5, 0.1, ninterp, rf=0.15, off=np.pi/arms)
+    inds, csf_x, csf_y = make_splines(arms, 0.6, 0.0, ninterp, rf=0.35, off=1*np.pi/arms)
     plt.fill(csf_x, csf_y, "w")
     plt.axis("equal")
     plt.axis("off")
