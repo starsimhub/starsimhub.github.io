@@ -52,10 +52,10 @@ def make_splines(arms, radius1, radius2, ninterp, **kw):
 # Plot the smoothed 12-point star with rounded inner points using cubic splines
 plot1 = True
 if plot1:
-    inds, csf_x, csf_y = make_splines(arms, radius1, radius2, ninterp, rf=rf)
+    inds, csf_x, csf_y = make_splines(arms, radius1, radius2, ninterp, rf=rf, off=np.pi/arms)
     fig1 = plt.figure(figsize=(6, 6))
     plt.fill(csf_x, csf_y, "k")
-    inds, csf_x, csf_y = make_splines(arms, 0.6, 0.1, ninterp, rf=0.07, off=np.pi/arms)
+    inds, csf_x, csf_y = make_splines(arms, 0.5, 0.1, ninterp, rf=0.15, off=np.pi/arms)
     plt.fill(csf_x, csf_y, "w")
     plt.axis("equal")
     plt.axis("off")
