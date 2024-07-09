@@ -55,7 +55,7 @@ if plot1:
     inds, csf_x, csf_y = make_splines(arms, radius1, radius2, ninterp, rf=rf)
     fig1 = plt.figure(figsize=(6, 6))
     plt.fill(csf_x, csf_y, "k")
-    inds, csf_x, csf_y = make_splines(arms, 0.6, 0.2, ninterp, rf=0.1, off=2*np.pi/arms/2)
+    inds, csf_x, csf_y = make_splines(arms, 0.6, 0.1, ninterp, rf=0.07, off=np.pi/arms)
     plt.fill(csf_x, csf_y, "w")
     plt.axis("equal")
     plt.axis("off")
