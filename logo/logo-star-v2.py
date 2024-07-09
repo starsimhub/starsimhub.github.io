@@ -67,13 +67,13 @@ for subrad in np.linspace(0.02,1,10):
     subpts = int(np.ceil(subrad*maxpts+5))
     print(subrad, subpts)
     inds, csf_x, csf_y = make_splines(arms, radius1*subrad, radius2*subrad, ninterp)
-    r = np.random.randn(subpts)*10
+    r = np.random.randn(subpts)*5
     subi = (np.linspace(0, ninterp-1, subpts)+r).astype(int)
     subi = subi[subi<ninterp]
     subx, suby = csf_x[subi], csf_y[subi]
     s = (1/(0.02+(subx**2+suby**2)**2))*5
-    plt.scatter(subx, suby, c='k', s=s, alpha=0.5)
-
+    plt.scatter(subx, suby, c='gold', s=s, alpha=0.5)
+plt.fill(csf_x, csf_y, 'navy', zorder=-10)
 plt.axis("equal")
 plt.axis("off")
 plt.show()
