@@ -364,32 +364,64 @@ Clinton Collins, Daniel Klein (2024). Starsim: An agent-based framework for mode
 			</div>  <!-- end of section -->
 		</div>  <!-- end of main -->
 	</div>  <!-- end of wrapper -->
+
 	<footer class="footer footer-black">
 		<div class="container">
-			<div class="row" style="padding: 50px 0px 50px 0px;">
+			<div class="row" style="padding: 50px 0px;">
 				<nav class="footer-nav">
-					<div style="max-width:500px">
-					<br> © 2024 Starsim Development Team
-					<br> 
-					<br> Starsim is being developed by the <a href="https://idmod.org">Institute for Disease Modeling</a>,
-					the <a href="https://burnet.edu.au">Burnet Institute</a>, and other collaborators.
-					<br>
-					<br> <a href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice">Privacy & cookies</a> | <a href="https://www.gatesfoundation.org/Terms-of-Use">Terms of use</a>
-				</div>
+					© 2024 Starsim Development Team
+					<div>Starsim is being developed by the 
+						<a href="https://idmod.org">Institute for Disease Modeling</a>,
+						the <a href="https://burnet.edu.au">Burnet Institute</a>, and other collaborators.
+					</div>
+					<div>
+						<a href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice">Privacy & cookies</a> | 
+						<a href="https://www.gatesfoundation.org/Terms-of-Use">Terms of use</a>
+					</div>
 				</nav>
-				<div class="credits ml-auto"; style="max-width:500px">
-<span class="copyright">Starsim is distributed under the MIT License to provide others with a 
-better understanding of our research and an opportunity to build upon
-it for their own work. We make no representations that the code works 
-as intended or that we will provide support, address issues that are 
-found, or accept pull requests. You are welcome to <a href="https://github.com/starsimhub/starsim/fork">create your own fork</a>
-and modify the code to suit your own modeling needs as permitted under
-the MIT License.
+				<div class="credits ml-auto">
+					<span class="copyright">
+						Starsim is distributed under the MIT License to provide others with a better understanding of our research and an opportunity to build upon it for their own work. We make no representations that the code works as intended or that we will provide support, address issues that are found, or accept pull requests. You are welcome to 
+						<a href="https://github.com/starsimhub/starsim/fork">create your own fork</a> and modify the code to suit your own modeling needs as permitted under the MIT License.
 					</span>
 				</div>
 			</div>
 		</div>
 	</footer>
+	
+	<style>
+	.footer {
+		background-color: #000;
+		color: #fff;
+		padding: 20px 0;
+	}
+	.footer-nav, .credits {
+		flex: 1;
+	}
+	.footer-nav div, .credits span {
+		margin-top: 10px;
+	}
+	.container {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.row {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	@media (min-width: 768px) {
+		.row {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+		.footer-nav, .credits {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+	</style>
 
 </body>
 
