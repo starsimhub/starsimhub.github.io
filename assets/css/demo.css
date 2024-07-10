@@ -119,7 +119,6 @@
     background-attachment: fixed;
     position: relative;
     line-height: 20px;
-    background-image: url(../img/background-header-v2.jpg);
 }
 .footer nav > ul {
   list-style: none;
