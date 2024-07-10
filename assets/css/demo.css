@@ -1,16 +1,16 @@
-.tim-row{
+.ss-row{
     margin-bottom: 20px;
 }
 
-.tim-white-buttons {
+.ss-white-buttons {
     background-color: #777777;
 }
-.tim-title{
+.ss-title{
     margin-top: 30px;
     margin-bottom: 25px;
     min-height: 32px;
 }
-.tim-title.text-center{
+.ss-title.text-center{
     margin-bottom: 50px;
 }
 .typography-line{
@@ -31,10 +31,10 @@
     position: absolute;
     width: 260px;
 }
-.tim-row{
+.ss-row{
     padding-top: 50px;
 }
-.tim-row h3{
+.ss-row h3{
     margin-top: 0;
 }
 .switch{
@@ -1219,6 +1219,7 @@
 #icons-links .btn{
   font-size:20px;
   margin-top:10px;
+  margin-right:20px;
 
 }
 

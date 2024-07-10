@@ -63,6 +63,10 @@ p {
   margin-bottom: 5px;
 }
 
+ul {
+  font-size: 17px;
+}
+
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
   color: #9A9A9A;
   line-height: 1.5em;
@@ -199,7 +203,7 @@ blockquote small {
 body {
   color: #66615b;
   font-size: 14px;
-  font-weight: 300;
+/*  font-weight: 300;*/
   /* font-family: 'Montserrat', "Helvetica", Arial, sans-serif; */
   /* font-family: 'Montserrat', "Helvetica", Arial, sans-serif; */
   /* font-family:sans-serif;*/
@@ -5930,12 +5934,6 @@ textarea.form-control {
   padding: 0 15px;
   width: 100%;
   color: rgba(255, 255, 255, 0.5);
-}
-.category-absolute .creative-tim-logo {
-  max-width: 140px;
-  top: -2px;
-  left: 3px;
-  position: relative;
 }
 
 .fog-low {
