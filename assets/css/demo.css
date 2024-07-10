@@ -232,9 +232,6 @@
 .demo-height .motto{
     padding-top: 20% !important;
 }
-.demo-header-image{
-    background-image: url('../img/city.jpg');
-}
 .demo-header .motto{
     color: #FFFFFF;
     padding-top: 15%;
@@ -649,6 +646,7 @@
   margin:15px 2px;
   font-size: 16px;
   font-weight: 600;
+  font-family: "Raleway", "Montserrat", "Helvetica", Arial, sans-serif;
   cursor: pointer;
   padding: 0.5rem 0.8rem 0.5rem 0.5rem;
   color:#dddddd;

@@ -22,7 +22,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   margin: 30px 0 0;
-  font-family: "Montserrat", "Helvetica", Arial, sans-serif;
+  font-family: "Raleway", "Montserrat", "Helvetica", Arial, sans-serif;
 }
 
 h1, .h1 {
@@ -208,6 +208,7 @@ body {
   /* font-family: 'Montserrat', "Helvetica", Arial, sans-serif; */
   /* font-family:sans-serif;*/
   font-family: 'Work Sans', 'Montserrat', "Helvetica", Arial, sans-serif;
+  /* font-family: "Raleway", "Montserrat", "Helvetica", Arial, sans-serif; */
 
   /* font-family: FreightSans, Helvetica Neue, Helvetica, Arial, sans-serif; */
 
@@ -358,6 +359,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   border-width: 2px;
   font-size: 12px;
   font-weight: 600;
+  font-family: "Raleway", "Montserrat", "Helvetica", Arial, sans-serif;
   padding: 0.5rem 18px;
   line-height: 1.75;
   cursor: pointer;
@@ -1945,7 +1947,7 @@ textarea.form-control {
 
 .navbar {
   border-bottom: 4px solid;
-  border-color: #282828 !important;
+  border-color: #303030 !important;
   font-size: 14px;
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
