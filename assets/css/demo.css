@@ -119,6 +119,7 @@
     background-attachment: fixed;
     position: relative;
     line-height: 20px;
+    background-image: url(../img/background-header-v2.jpg);
 }
 .footer nav > ul {
   list-style: none;
@@ -649,10 +650,9 @@
   margin:15px 2px;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Helvetica";
   cursor: pointer;
   padding: 0.5rem 0.8rem 0.5rem 0.5rem;
-  color:#636A73;
+  color:#dddddd;
 }
 
 @media screen and (max-width: 991px) {

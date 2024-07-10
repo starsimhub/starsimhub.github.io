@@ -1949,7 +1949,7 @@ textarea.form-control {
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
   padding: 0;
-  background: #FFFFFF;
+  background-image: url(../img/background-header-v2.jpg);
   box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
 }
 .navbar .navbar-toggler-right {
