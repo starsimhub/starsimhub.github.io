@@ -4840,7 +4840,7 @@ textarea.form-control {
     right: 0;
     z-index: 1032;
     visibility: visible;
-    background-color: #999;
+    background-color: #252422 !important;
     overflow-y: visible;
     border-top: none;
     text-align: left;
@@ -4877,7 +4877,7 @@ textarea.form-control {
     padding: 15px 0;
   }
   .navbar-collapse .navbar-nav > .nav-item > .nav-link:hover, .navbar-collapse .navbar-nav > .nav-item > .nav-link:active {
-    color: #403D39 !important;
+    color: #252422 !important;
   }
   .navbar-collapse::after {
     top: 0;
@@ -4885,7 +4885,7 @@ textarea.form-control {
     height: 100%;
     width: 100%;
     position: absolute;
-    background-color: #333;
+    background-color: #252422;
     background-image: linear-gradient(to bottom, transparent 0%, rgba(112, 112, 112, 0) 60%, rgba(186, 186, 186, 0.15) 100%);
     display: block;
     content: "";
@@ -4897,7 +4897,7 @@ textarea.form-control {
     height: 100%;
     width: 100%;
     position: absolute;
-    background-color: rgba(17, 17, 17, 0.8);
+    background-color: #252422;
     display: block;
     content: "";
     z-index: 1;
