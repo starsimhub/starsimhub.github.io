@@ -65,7 +65,7 @@
 			<div class="container">
 				<div class="filter"></div>
 				<div class="motto">
-					<h1 style="padding-top:55px; font-weight:bold; font-size:3em;">A fast, flexible agent-based disease modeling framework</h1>
+					<h1 style="padding-top:40px; font-weight:bold; font-size:3em;">A fast, flexible agent-based disease modeling framework</h1>
 					<!-- <p style="padding-top:10px;">A fast, flexible agent-based framework for simulating health and disease.</p> -->
 				</div>
 			</div>
@@ -188,10 +188,10 @@
 												<a class="nav-link nav-link-narrow active" href="#code_basic" data-toggle="tab" role="tab" aria-selected="true"><span class="tablist-text">Basic example</span></a>
 											</li>
 											<li class="nav-item ">
-												<a class="nav-link nav-link-narrow" href="#code_scenarios" data-toggle="tab" role="tab" aria-selected="false"><span class="iconify tablist-icon" data-inline="false" height="20"></span> <span class="tablist-text">Running scenarios</span></a>
+												<a class="nav-link nav-link-narrow" href="#code_scenarios" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">Running scenarios</span></a>
 											</li>
 											<li class="nav-item ">
-												<a class="nav-link nav-link-narrow" href="#code_vaccine" data-toggle="tab" role="tab" aria-selected="false"><span class="iconify tablist-icon" data-inline="false" height="20"></span> <span class="tablist-text">Custom interventions</span></a>
+												<a class="nav-link nav-link-narrow" href="#code_vaccine" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">Custom interventions</span></a>
 											</li>
 										</ul>
 									</div>
@@ -204,8 +204,9 @@
 												<p class="space-top text-left" style="padding-top:0px;">
 													<p class="space-top" style="margin-top:0px;">A minimal Starsim example:</p>
 													<ol>
-														<li>Create a simple susceptible-infectious-recovered (SIR) model with default parameters</li>
-														<li>Create a random transmission network between agents</li>
+														<li>Create a simple susceptible-infectious-recovered (SIR) model with default parameters.</li>
+														<li>Create a random transmission network between agents (also with default parameters).</li>
+														<li>Run the simulation and plot the results.</li>
 													</ol>
 <pre><code class="language-python">import starsim as ss
 
@@ -224,9 +225,9 @@ sim.plot() # Plot the results
 													<p class="space-top text-left" style="padding-top:0px;">
 														You can easily customize model parameters, and run simulations in parallel:<br/>
 														<ol>
-															<li>Create a dictionary defining the parameters of the simulation</li>
-															<li>Modify only those parameters you want to differ between scenarios</li>
-															<li>Run the simulations in parallel, and plot the results you are interested in</li>
+															<li>Create a dictionary defining the parameters of the simulation.</li>
+															<li>Modify only those parameters you want to differ between scenarios.</li>
+															<li>Run the simulations in parallel, and plot the results you are interested in.</li>
 														</ol>
 <pre><code class="language-python">import starsim as ss
 import sciris as sc
@@ -266,10 +267,12 @@ msim.plot('sis_n_infected')
 											<div class="row">
 												<div class="col-md-12">
 													<p class="space-top text-left" style="padding-top:0px;">
-														You can write custom interventions, such as a vaccine product and vaccination campaign:<br/>
+														Everything in Starsim can be customized, including diseases, demographics, and intervention. 
+														This example shows how to write custom interventions, namely a vaccine product and vaccination campaign:<br/>
 <pre><code class="language-python">import starsim as ss
 import matplotlib.pyplot as plt
 
+# Define the simulation parameters
 pars = dict(
 	n_agents = 20_000,
 	birth_rate = 20,
@@ -285,7 +288,7 @@ pars = dict(
 	)
 )
 
-# Create the product - a vaccine with 50% efficacy
+# Create the product: a vaccine with 50% efficacy
 my_vaccine = ss.sir_vaccine(efficacy=0.5)
 
 # Create the vaccine campaign
