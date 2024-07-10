@@ -4,16 +4,19 @@ Generate figures for website
 
 import sciris as sc
 
+
+
 #%% Basic example
 
-# import starsim as ss
+import starsim as ss
 
-# sim = ss.Sim(diseases='sir', networks='random') # Create the sim
-# sim.run() # Run the sim
-# sim.plot() # Plot the results
+sim = ss.Sim(diseases='sir', networks='random') # Create the sim
+sim.run() # Run the sim
+sim.plot() # Plot the results
 
 
-# sc.savefig('example-basic.png')
+sc.savefig('example-basic.png')
+
 
 
 #%% Scenarios
@@ -54,52 +57,52 @@ sc.savefig('example-scenarios.png')
 
 #%% Vaccination
 
-# import starsim as ss
-# import matplotlib.pyplot as plt
+import starsim as ss
+import matplotlib.pyplot as plt
 
-# pars = dict(
-#     n_agents = 20_000,
-#     birth_rate = 20,
-#     death_rate = 15,
-#     networks = dict(
-#         type = 'random',
-#         n_contacts = 4
-#     ),
-#     diseases = dict(
-#         type = 'sir',
-#         dur_inf = 10,
-#         beta = 0.1,
-#     )
-# )
+pars = dict(
+    n_agents = 20_000,
+    birth_rate = 20,
+    death_rate = 15,
+    networks = dict(
+        type = 'random',
+        n_contacts = 4
+    ),
+    diseases = dict(
+        type = 'sir',
+        dur_inf = 10,
+        beta = 0.1,
+    )
+)
 
-# # Create the product - a vaccine with 50% efficacy
-# my_vaccine = ss.sir_vaccine(efficacy=0.5)
+# Create the product - a vaccine with 50% efficacy
+my_vaccine = ss.sir_vaccine(efficacy=0.5)
 
-# # Create the vaccine campaign
-# campaign = ss.routine_vx(
-#     start_year = 2015,    # Begin vaccination in 2015
-#     prob = 0.2,           # 20% coverage
-#     product = my_vaccine  # Use the MyVaccine product
-# )
+# Create the vaccine campaign
+campaign = ss.routine_vx(
+    start_year = 2015,    # Begin vaccination in 2015
+    prob = 0.2,           # 20% coverage
+    product = my_vaccine  # Use the MyVaccine product
+)
 
-# # Now create two sims: a baseline sim and one with the intervention
-# sim_base = ss.Sim(pars=pars)
-# sim_intv = ss.Sim(pars=pars, interventions=campaign)
+# Now create two sims: a baseline sim and one with the intervention
+sim_base = ss.Sim(pars=pars)
+sim_intv = ss.Sim(pars=pars, interventions=campaign)
 
-# # Run sims in parallel
-# sims = ss.parallel(sim_base, sim_intv).sims
-# base = sims[0].results
-# vax = sims[1].results
+# Run sims in parallel
+sims = ss.parallel(sim_base, sim_intv).sims
+base = sims[0].results
+vax = sims[1].results
 
-# # Plot
-# plt.figure()
-# plt.plot(base.yearvec, base.sir.prevalence, label='Baseline')
-# plt.plot(vax.yearvec, vax.sir.prevalence, label='Vaccine')
-# plt.axvline(x=2015, color='k', ls='--')
-# plt.title('Vaccine impact')
-# plt.xlabel('Year')
-# plt.ylabel('Prevalence')
-# plt.legend()
+# Plot
+plt.figure()
+plt.plot(base.yearvec, base.sir.prevalence, label='Baseline')
+plt.plot(vax.yearvec, vax.sir.prevalence, label='Vaccine')
+plt.axvline(x=2015, color='k', ls='--')
+plt.title('Vaccine impact')
+plt.xlabel('Year')
+plt.ylabel('Prevalence')
+plt.legend()
 
 
-# sc.savefig('example-vaccine.png')
+sc.savefig('example-vaccine.png')
