@@ -58,14 +58,15 @@ h6, .h6 {
 }
 
 p {
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.5em;
   margin-bottom: 5px;
 }
 
-ul {
+/* Breaks mobile */
+/* ul {
   font-size: 17px;
-}
+} */
 
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
   color: #9A9A9A;
@@ -202,7 +203,7 @@ blockquote small {
 /*     General overwrite     */
 body {
   color: #66615b;
-  font-size: 14px;
+  font-size: 18px;
 /*  font-weight: 300;*/
   /* font-family: 'Montserrat', "Helvetica", Arial, sans-serif; */
   /* font-family: 'Montserrat', "Helvetica", Arial, sans-serif; */
