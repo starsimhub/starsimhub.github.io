@@ -1944,7 +1944,8 @@ textarea.form-control {
 }
 
 .navbar {
-  border: 0;
+  border-bottom: 4px solid;
+  border-color: #282828 !important;
   font-size: 14px;
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
