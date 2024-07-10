@@ -120,7 +120,7 @@ blockquote small {
 }
 
 .text-primary, .text-primary:hover {
-  color: #184786 !important;
+  color: #222222 !important; /* #184786; */
 }
 
 .text-info, .text-info:hover {
@@ -443,8 +443,8 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 
 .btn-primary {
-  background-color: #184786;
-  border-color: #184786;
+  background-color: #0074a0;
+  border-color: #0074a0;
   color: #FFFFFF;
   opacity: 1;
   filter: alpha(opacity=100);
@@ -458,14 +458,14 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   border-top-color: #FFFFFF;
 }
 .btn-primary.btn-link {
-  color: #184786;
+  color: #0074a0;
 }
 .btn-primary.btn-link:hover, .btn-primary.btn-link:focus, .btn-primary.btn-link:active, .btn-primary.btn-link.active, .open > .btn-primary.btn-link.dropdown-toggle {
   background-color: transparent;
   color: #34b5b8;
 }
 .btn-primary.btn-link .caret {
-  border-top-color: #184786;
+  border-top-color: #0074a0;
 }
 .btn-primary .caret {
   border-top-color: #FFFFFF;

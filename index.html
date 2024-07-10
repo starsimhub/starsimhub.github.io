@@ -102,9 +102,9 @@
 					<!-- external links (top) -->
 					<div class="col-md-12 ml-auto mr-auto">
 						<ul id="icons-links" class="text-center" style="margin-top:0px">
-							<a href="https://docs.starsim.org"><button class="btn btn-primary"><img src="https://icongr.am/octicons/code.svg?size=30&color=ffffff"> Docs<div class="ripple-container"></div></button></a>
-							<a href="https://docs.idmod.org/projects/starsim/en/latest/tutorials.html"><button class="btn btn-primary"><img src="https://icongr.am/fontawesome/lightbulb-o.svg?size=30&color=ffffff" height="30"> Tutorials<div class="ripple-container"></div></button></a>
-							<a href="https://github.com/starsimhub/starsim"><button class="btn btn-primary"><img src="https://icongr.am/octicons/mark-github.svg?size=30&color=ffffff"> Code<div class="ripple-container"></div></button></a>
+							<a href="https://docs.starsim.org" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/octicons/code.svg?size=30&color=ffffff"> Docs<div class="ripple-container"></div></button></a>
+							<a href="https://docs.idmod.org/projects/starsim/en/latest/tutorials.html" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/fontawesome/lightbulb-o.svg?size=30&color=ffffff" height="30"> Tutorials<div class="ripple-container"></div></button></a>
+							<a href="https://github.com/starsimhub/starsim" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/octicons/mark-github.svg?size=30&color=ffffff"> Code<div class="ripple-container"></div></button></a>
 						</ul>
 					</div>
 
@@ -118,7 +118,7 @@
 										<div class="card-body" style="min-height: 250px;">
 											<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">High performance</h2>
 												<div class="card-image text-center">
-													<img class="img img-raised" src="https://icongr.am/fontawesome/flash.svg?color=123692" style="width:17%; margin:5px 0; padding: 5px 0;">
+													<img class="img img-raised" src="https://icongr.am/fontawesome/flash.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
 												</div>
 											<p class="card-description text-left" style="margin-top:10px;">
 												Optimized vector computations and just-in-time <a href="https://numba.pydata.org/">Numba</a> compilation mean Starsim achieves C++ speeds from pure Python.
@@ -132,7 +132,7 @@
 										<div class="card-body" style="min-height: 250px;">
 											<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">Easy to use</h2>
 											<div class="card-image text-center">
-												<img class="img img-raised" src="https://icongr.am/fontawesome/angellist.svg?color=123692" style="width:17%; margin:5px 0; padding: 5px 0;">
+												<img class="img img-raised" src="https://icongr.am/fontawesome/angellist.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
 											</div>
 											<p class="card-description text-left" style="margin-top:10px;">
 												Starsim's modular structure means you can reuse or adapt existing disease models, transmission networks, and demographics.
@@ -146,7 +146,7 @@
 										<div class="card-body" style="min-height: 250px;">
 											<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">Global community</h2>
 											<div class="card-image text-center">
-												<img class="img img-raised" src="https://icongr.am/fontawesome/globe.svg?color=123692" style="width:17%; margin:5px 0; padding: 5px 0;">
+												<img class="img img-raised" src="https://icongr.am/fontawesome/globe.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
 											</div>
 											<p class="card-description text-left" style="margin-top:10px;">
 												We're a community, not a product. We believe in transparency and collaboration to ensure the best global health outcomes.
@@ -189,7 +189,7 @@
 									<div class="nav-tabs-wrapper">
 										<ul id="tabs" class="nav nav-tabs" role="tablist">
 											<li class="nav-item ">
-												<a class="nav-link nav-link-narrow active" href="#code_basic" data-toggle="tab" role="tab" aria-selected="true"><span class="tablist-text">Basic example</span></a>
+												<a class="nav-link nav-link-narrow active" href="#code_basic" data-toggle="tab" role="tab" aria-selected="true"><span class="tablist-text">Simple example</span></a>
 											</li>
 											<li class="nav-item ">
 												<a class="nav-link nav-link-narrow" href="#code_scenarios" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">Running scenarios</span></a>
@@ -206,9 +206,9 @@
 										<div class="row">
 											<div class="col-md-12">
 												<p class="space-top text-left" style="padding-top:0px;">
-													<p class="space-top" style="margin-top:0px;">A minimal Starsim example:</p>
+													<p class="space-top" style="margin-top:0px;">This is what an extremely simple Starsim simulation looks like:</p>
 													<ol>
-														<li>Create a simple susceptible-infectious-recovered (SIR) model with default parameters.</li>
+														<li>Create a susceptible-infectious-recovered (SIR) disease model with default parameters.</li>
 														<li>Create a random transmission network between agents (also with default parameters).</li>
 														<li>Run the simulation and plot the results.</li>
 													</ol>

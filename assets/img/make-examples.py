@@ -12,10 +12,15 @@ import starsim as ss
 
 sim = ss.Sim(diseases='sir', networks='random') # Create the sim
 sim.run() # Run the sim
-sim.plot() # Plot the results
+sim.plot() # Plot all results
 
 
 sc.savefig('example-basic.png')
+
+# sim.diseases.sir.plot() # Plot SIR results
+
+# sc.savefig('example-sir.png')
+
 
 
 
