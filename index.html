@@ -26,7 +26,7 @@
 	<meta property="og:url" content="https://starsim.org/">
 	<meta property="og:image" content="https://starsim.org/assets/img/starsim-horiz.png">
 
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '[https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f)](https://www.googletagmanager.com/gtm.js?id=%27+i+dl;f.parentNode.insertBefore(j,f)); })(window,document,'script','dataLayer','GTM-NK4K647');</script>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NK4K647');</script>;
 
 	<!--     Fonts and icons     -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +35,31 @@
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700|Work+Sans|Material+Icons' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+	<style>
+        .table {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .row {
+            display: flex;
+            width: 100%;
+        }
+        .lcell {
+            flex: 1;
+            border: 0px solid #ccc; /* Optional: For visual reference */
+            padding: 10px; /* Optional: For spacing */
+            text-align: right; /* Optional: Center text */
+        }
+		.rcell {
+            flex: 1;
+            border: 0px solid #ccc; /* Optional: For visual reference */
+            padding: 10px; /* Optional: For spacing */
+            text-align: left; /* Optional: Center text */
+        }
+    </style>
+
 </head>
 
 
@@ -58,6 +83,7 @@
 					<li class="nav-item"><a href="#why" class="header_link"> Why Starsim?</a></li>
 					<li class="nav-item"><a href="#installation" class="header_link"> Installation</a></li>
 					<li class="nav-item"><a href="#examples" class="header_link"> Examples</a></li>
+					<li class="nav-item"><a href="#events" class="header_link"> Events</a></li>
 					<li class="nav-item"><a href="#paper" class="header_link"> Paper</a></li>
 					<li class="nav-item"><a href="#contact" class="header_link"> Contact</a></li>
 				</ul>
@@ -121,7 +147,7 @@
 							<div class="row">
 								<div class="col-md-4">
 									<div class="card card-blog card-top-shadow">
-										<div class="card-body" style="min-height: 250px;">
+										<div class="card-body" style="min-height: 300px;">
 											<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">High performance</h2>
 												<div class="card-image text-center">
 													<img class="img img-raised" src="https://icongr.am/fontawesome/flash.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
@@ -135,7 +161,7 @@
 
 								<div class="col-md-4">
 									<div class="card card-blog card-top-shadow">
-										<div class="card-body" style="min-height: 250px;">
+										<div class="card-body" style="min-height: 300px;">
 											<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">Easy to use</h2>
 											<div class="card-image text-center">
 												<img class="img img-raised" src="https://icongr.am/fontawesome/angellist.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
@@ -149,7 +175,7 @@
 
 								<div class="col-md-4">
 									<div class="card card-blog card-top-shadow">
-										<div class="card-body" style="min-height: 250px;">
+										<div class="card-body" style="min-height: 300px;">
 											<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">Global community</h2>
 											<div class="card-image text-center">
 												<img class="img img-raised" src="https://icongr.am/fontawesome/globe.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
@@ -338,6 +364,49 @@ plt.legend()
 
 					</div>  <!-- end of row -->
 
+					<!-- Events -->
+					<div class="row">
+						<div class="col-md-12 ml-auto mr-auto">
+							<h2 class="text-center" id="events" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Events</h2>
+							<div class="row">
+								<div class="col-md-9 ml-auto mr-auto">
+									<h6>Upcoming events</h6>
+									<div class="table">
+										<div class="row">
+											<div class="lcell"><b>Starsim Learning Day</b><br>Oct. 3, 2024: Seattle, USA</div>
+											<div class="rcell">We will be conducting a full-day information and training session on Starsim as part of the 2024 IDM Symposium.
+												More information is available <a href="./symposium2024/index.html">here</a>.</div>
+										</div>
+									</div>
+									
+									<h6>Past events</h6>
+									<div class="table">
+										<div class="row">
+											<div class="lcell"><b>Starsim @ AIDS 2024</b><br>Jul. 25, 2024: Munich, Germany</div>
+											<div class="rcell">A poster on using Starsim to model HIV-STI coinfection was presented at the <a href="https://www.iasociety.org/conferences/aids2024">AIDS 2024</a> conference.
+												The poster is available <a href="https://docs.google.com/presentation/d/1ObX11ExrtueXWAsPqPhV01SRoRLXDr5dB2AtKKhcZuk/edit">here</a>.</div>
+										</div>
+										<div class="row">
+											<div class="lcell"><b>Starsim Launch</b><br>Jul. 10, 2024: Tacoma, USA</div>
+											<div class="rcell">Starsim v1.0 was officially launched at the <a href="https://www.scipy2024.scipy.org/">SciPy 2024</a> conference.
+												The slides from the talk are available <a href="https://docs.google.com/presentation/d/13kWAiYRiPvlWXDitE5UVNlsrxOMPjG1sSPd2gsMqoQU/edit">here</a>.</div>
+										</div>
+										<div class="row">
+											<div class="lcell"><b>Agent-Based Modeling Training</b><br>Apr. 8-19, 2024: Nairobi, Kenya</div>
+											<div class="rcell">In collaboration in the <a href="https://aphrc.org/">African Population & Health Research Center</a> (APHRC)
+												and the <a href="https://cema.africa/">Center for Epidemiological Modelling and Analysis</a> (CEMA), we conducted a workshop
+												on agent-based modeling, including Starsim. The brochure is available <a href="https://drive.google.com/file/d/1Ya1S7RvRI3U_EQscRWpmpF7cILTELgAC/view">here</a>;
+												other materials are available upon request.
+												</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>  <!-- end of row -->
+
+				<!-- Paper -->
 				<div class="row" style="margin-top:0px;">
 					<div class="col-md-12 ml-auto mr-auto">
 						<div class="row" style="margin-top:0px;">
@@ -345,8 +414,8 @@ plt.legend()
 								<h2 id="paper" class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Paper</h2>
 								<p class="text-left">Starsim has not yet been published. But if you want to cite it, please use:</p>
 <pre class="prettyprint_pub" style="margin-top:0px; margin-bottom:10px;">
-Cliff Kerr, Robyn Stuart, Romesh Abeysuriya, Jamie Cohen, Paula Sanz-Leon, Alina Muellenmeister, Keith Alexander Ashe, Luojun Yang, 
-Clinton Collins, Daniel Klein (2024). Starsim: An agent-based framework for modeling health and disease. In preparation.</pre>
+Cliff Kerr, Robyn Stuart, Romesh Abeysuriya, Jamie Cohen, Paula Sanz-Leon, Alina Muellenmeister, Daniel Klein (2024).
+Starsim: A fast, flexible toolbox for agent-based modeling of health and disease. In preparation.</pre>
 							</div>
 
 							<div class="col-md-12 ml-auto mr-auto text-center">
@@ -358,7 +427,7 @@ Clinton Collins, Daniel Klein (2024). Starsim: An agent-based framework for mode
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>  <!-- end of row -->
 
 				<ul id="icons-links" class="text-center" style="margin-top:60px;">
 				</ul>
