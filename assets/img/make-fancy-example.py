@@ -51,7 +51,7 @@ m1.reduce()
 m2.reduce()
 
 # Plot the simulations
-fig,axs = plt.subplots(figsize=(6,4))
+fig,axs = plt.subplots(figsize=(5,3))
 m1.plot('sis_n_infected', fig=fig)
 m2.plot('sis_n_infected', fig=fig)
 
@@ -62,5 +62,7 @@ ax.set_title('')
 sc.boxoff()
 sc.commaticks()
 plt.legend(fig.axes[0].lines, ['Low transmission', 'High transmission'], frameon=False)
+sc.figlayout()
+plt.show()
 
 sc.savefig('fancy-scenarios.png')
