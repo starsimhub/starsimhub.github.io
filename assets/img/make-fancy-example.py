@@ -7,7 +7,7 @@ import sciris as sc
 import starsim as ss
 import matplotlib.pyplot as plt
 
-sc.options(dpi=200)
+sc.options(dpi=200, font='Rosario')
 n = 5
 beta_var = 0.1
 
