@@ -28,13 +28,18 @@
 
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NK4K647');</script>;
 
-	<!--     Fonts and icons     -->
+	<!-- Fonts and icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300..700&display=swap" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700|Work+Sans|Material+Icons' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+	<!-- Syntax highlighting -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
 	<style>
         .table {
@@ -93,13 +98,11 @@
 	</nav>
 	<div class="wrapper">
 
-
 		<div class="page-header page-header-small" style="background-image: url('./assets/img/background-network-v2.jpg');">
 			<div class="container">
 				<div class="filter"></div>
 				<div class="motto">
 					<h1 style="padding-top:40px; font-weight:bold; font-size:3em;">A fast, flexible agent-based disease modeling framework</h1>
-					<!-- <p style="padding-top:10px;">A fast, flexible agent-based framework for simulating health and disease.</p> -->
 				</div>
 			</div>
 		</div>
@@ -115,7 +118,7 @@
 							<div class="row">
 								<div class="col-md-9 ml-auto mr-auto">
 									<p class="text-left" style="padding-top:0px;">
-										Starsim is an open-source agent-based modeling framework for simulating the spread of diseases among agents 
+										Starsim is an agent-based modeling framework for simulating the spread of diseases among agents 
 										via dynamic transmission networks. Starsim supports:</p>
 										<ul class="text-left">
 											<li><b>Co-transmission</b> of multiple diseases at once, capturing how they interact biologically and behaviorally</li>
@@ -124,6 +127,7 @@
 											<li>Multiple types of <b>transmission network</b>, including theoretical (e.g. Erdős–Rényi) and realistic (e.g. age-assortative sexual partnerships)</li>
 											<li>Different <b>intervention types</b>, such as vaccines or treatments, and showing their impact through different delivery methods such as mass campaigns or targeted outreach</li>
 										</ul>
+									<p>Starsim is available for both Python and R, and is fully open-source under the MIT license.</p>
 								</div>
 							</div>
 						</div>
@@ -135,6 +139,7 @@
 							<a href="https://docs.starsim.org" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/octicons/code.svg?size=30&color=ffffff">&nbsp;&nbsp;Docs<div class="ripple-container"></div></button></a>
 							<a href="https://docs.idmod.org/projects/starsim/en/latest/tutorials.html" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/fontawesome/lightbulb-o.svg?size=30&color=ffffff" height="30">&nbsp;Tutorials<div class="ripple-container"></div></button></a>
 							<a href="https://github.com/starsimhub/starsim" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/octicons/mark-github.svg?size=30&color=ffffff">&nbsp;&nbsp;Code<div class="ripple-container"></div></button></a>
+							<a href="https://r.starsim.org" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/octicons/graph.svg?size=30&color=ffffff">&nbsp;&nbsp;R Docs<div class="ripple-container"></div></button></a>
 						</ul>
 					</div>
 
@@ -151,9 +156,9 @@
 													<img class="img img-raised" src="https://icongr.am/fontawesome/flash.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
 												</div>
 											<p class="card-description text-left" style="margin-top:10px;">
-												Optimized vector computations and just-in-time <a href="https://numba.pydata.org/">compilation</a> 
-												 mean Starsim achieves C++ speeds from pure Python. Starsim is designed to run on
-												laptops, not supercomputers.
+												Array computations and just-in-time <a href="https://numba.pydata.org/">compilation</a> 
+												mean Starsim achieves C++ speeds from pure Python. Starsim runs on
+												laptops, not supercomputers, via either R or Python.
 											</p>
 										</div>
 									</div>
@@ -203,8 +208,18 @@
 									<p class="text-left" style="padding-top:0px;">
 										If you have Python, you can install Starsim:<br>
 									</p>
+									<p class="text-center">									
+<pre><code class="language-bash">> pip install starsim</code></pre>
+									</p>
+								</div>
+								<div class="col-md-9 ml-auto mr-auto">
+									<p class="text-left" style="padding-top:0px;">
+										Or from R:<br>
+									</p>
 									<p class="text-center">
-										<pre><code class="language-bash">> pip install starsim</code></pre>
+<pre><code class="language-bash">devtools::install_github("starsimhub/rstarsim")
+library(starsim)
+init_starsim()</code></pre>
 									</p>
 								</div>
 							</div>
@@ -230,6 +245,9 @@
 											</li>
 											<li class="nav-item ">
 												<a class="nav-link nav-link-narrow" href="#code_vaccine" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">Custom interventions</span></a>
+											</li>
+											<li class="nav-item ">
+												<a class="nav-link nav-link-narrow" href="#code_r" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">R example</span></a>
 											</li>
 										</ul>
 									</div>
@@ -359,6 +377,41 @@ plt.legend()
 												</div>
 											</div>
 										</div>
+
+										<div class="tab-pane" id="code_r" role="tabpanel">
+											<div class="row">
+												<div class="col-md-12">
+													<p class="space-top text-left" style="padding-top:0px;">
+														<p class="space-top" style="margin-top:0px;">Starsim can be run from R just as easily as from Python:</p>
+<pre><code class="language-r"># Load Starsim
+library(starsim)
+load_starsim()
+
+# Set the simulation parameters
+pars <- list(
+	n_agents = 10000,
+	birth_rate = 20,
+	death_rate = 15,
+	networks = list(
+		type = 'randomnet',
+		n_contacts = 4
+	),
+	diseases = list(
+		type = 'sir',
+		dur_inf = 10,
+		beta = 0.1
+	)
+)
+
+# Create, run, and plot the simulation
+sim <- ss$Sim(pars)
+sim$run()
+sim$diseases$sir$plot()
+	</code></pre>
+	<img src="assets/img/example-r.png" width="100%" class="card-top-shadow text-center">
+													</div>
+												</div>
+											</div>
 
 								</div>  <!-- end of tab-content-->
 							</div>  <!-- end of profile-tabs -->
