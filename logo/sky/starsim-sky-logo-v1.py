@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 class Dots(sc.prettyobj):
 
     def __init__(self):
-        self.seed = 6
+        self.seed = 3
         self.npts = 50
         self.niter = 1000
         self.mindist = 0.25
@@ -57,7 +57,7 @@ class Dots(sc.prettyobj):
         return -xdiff, -ydiff
 
     def noise(self, arg):
-        return arg*sc.perturb(len(arg), span=self.temp)
+        return arg*sc.perturb(len(arg), span=self.temp, randseed=self.seed)
 
     def to_center(self):
         x,y = self.xy()
