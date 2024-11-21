@@ -12,13 +12,13 @@ import matplotlib.pyplot as plt
 class Dots(sc.prettyobj):
 
     def __init__(self):
-        self.seed = 1
-        self.npts = 60
+        self.seed = 6
+        self.npts = 50
         self.niter = 1000
-        self.mindist = 0.2
-        self.v_center = 3e-3
-        self.v_neighbor = 3e-2
-        self.temp = 0.05
+        self.mindist = 0.25
+        self.v_center = 1e-3
+        self.v_neighbor = 1e-2
+        self.temp = 0.2
 
         np.random.seed(self.seed)
         self.x = np.random.uniform(-1, 1, size=self.npts)
@@ -101,7 +101,7 @@ class Dots(sc.prettyobj):
         else:
             plt.clf()
         # plt.scatter([0], [0], c='k', s=300)
-        plt.scatter(self.x, self.y, s=150)
+        plt.scatter(self.x, self.y, s=800)
         plt.axis('square')
         plt.xlim(left=-1, right=1)
         plt.ylim(bottom=-1, top=1)
