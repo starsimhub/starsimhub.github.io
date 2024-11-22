@@ -1,6 +1,4 @@
 """
-Ugly.
-
 Do a star as a network, black and green nodes/edges, with a larger gold node
 in the middle.
 """
@@ -100,7 +98,6 @@ class Dots(sc.prettyobj):
             fig = plt.figure(dpi=300)
         else:
             plt.clf()
-        # plt.scatter([0], [0], c='k', s=300)
         plt.scatter(self.x, self.y, s=800)
         plt.axis('square')
         plt.xlim(left=-1, right=1)
@@ -113,9 +110,26 @@ class Dots(sc.prettyobj):
             plt.pause(pause)
         return fig
 
+    def logo(self):
+        fig = plt.figure(dpi=300)
+        plt.scatter(self.x, self.y, s=800)
+        topleft = sc.dictobj(x=-0.45, y=0.22)
+        bottomright = sc.dictobj(x=0.08, y=-0.27)
+        inside = (self.x > topleft.x) * (self.x < bottomright.x) * (self.y < topleft.y) * (self.y > bottomright.y)
+        assert inside.sum() == 5
+        plt.scatter(self.x[inside], self.y[inside], s=800, c='gold')
+
+        plt.axis('square')
+        plt.xlim(left=-1, right=1)
+        plt.ylim(bottom=-1, top=1)
+        plt.axis('off')
+        plt.tight_layout()
+        sc.savefig('starsim-sky-logo.png')
+        plt.show()
+        return fig
 
 dots = Dots()
 dots.run()
-dots.plot()
+dots.logo()
 
 
