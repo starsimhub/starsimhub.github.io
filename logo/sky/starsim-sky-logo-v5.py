@@ -12,12 +12,15 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
-colkey = ['blue', 'green', 'black', 'hybrid'][1]
+colkey = ['blue', 'green', 'black', 'hybrid', 'lith', 'ghana', 'sky'][-1]
 color_options = sc.objdict(
     blue = sc.objdict(ast='gold', sh='#47C7F4', spk='#0372A2'),
-    green = sc.objdict(ast='gold', sh='tab:green', spk='tab:red'),
+    green = sc.objdict(ast='gold', sh='tab:green', spk='#C1272D'),
     black = sc.objdict(ast='gold', sh='k', spk='tab:red'),
     hybrid = sc.objdict(ast='gold', sh='#47C7F4', spk='k'),
+    lith = sc.objdict(ast='#FDB913', sh='#006A44', spk='#C1272D'),
+    ghana = sc.objdict(ast='#FCD20F', sh='#006B3D', spk='#CF0921'),
+    sky = sc.objdict(ast='gold', sh='#47C7F4', spk='#47C7F4'),
 )[colkey]
 
 class Dots(sc.prettyobj):
