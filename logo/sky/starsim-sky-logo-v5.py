@@ -16,7 +16,7 @@ class Dots(sc.prettyobj):
 
     def __init__(self):
         self.seed = 3
-        self.cs = 1.414
+        self.cs = 1.8
         self.ds = 1.0
         self.ms = 640 # Marker size
         self.ang = 0.25
@@ -83,6 +83,21 @@ class Dots(sc.prettyobj):
 
         for j in range(1,self.n_ast+1):
             self.add_line(0, j, self.cols.ast)
+
+        for path in [
+                [1,18],
+                [16,6,17],
+                [5,15],
+                [12,4,14],
+                [10,3,11],
+                [9,2],
+                [8,1],
+            ]:
+            for k in range(len(path)-1):
+                i = path[k]
+                j = path[k+1]
+                self.add_line(i, j, self.cols.ast)
+
         return
 
     def make_shell(self):
@@ -109,11 +124,12 @@ class Dots(sc.prettyobj):
         return
 
     def make_spikes(self):
-        n = self.n_sh//2
-        for i in range(n):
-            ang = i/n + self.ang
-            x, y = self.p2e(self.r_spk, ang)
-            self.add_dot(x, y, self.ds, self.cols.spk)
+        for j in range(2):
+            r = [self.r_sh, self.r_spk][j]
+            for i in range(self.n_spk):
+                ang = i/self.n_spk + self.ang
+                x, y = self.p2e(r, ang)
+                self.add_dot(x, y, self.ds, self.cols.spk)
 
         for i,j in [
                 [17,34],
@@ -132,7 +148,7 @@ class Dots(sc.prettyobj):
         self.make_spikes()
         return
 
-    def logo(self, save=True, debug=0):
+    def logo(self, save=True, debug=False):
         fig = plt.figure(dpi=300)
         df = self.df
 
@@ -144,7 +160,7 @@ class Dots(sc.prettyobj):
                 x = np.round(df.x[i], 3)
                 y = np.round(df.y[i], 3)
                 if (x,y) not in used:
-                    plt.text(x, y, i)
+                    plt.text(x, y, i, c='w')
                     used.add((x,y))
                 print(used)
 
