@@ -12,6 +12,14 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
+colkey = ['blue', 'green', 'black', 'hybrid'][1]
+color_options = sc.objdict(
+    blue = sc.objdict(ast='gold', sh='#47C7F4', spk='#0372A2'),
+    green = sc.objdict(ast='gold', sh='tab:green', spk='tab:red'),
+    black = sc.objdict(ast='gold', sh='k', spk='tab:red'),
+    hybrid = sc.objdict(ast='gold', sh='#47C7F4', spk='k'),
+)[colkey]
+
 class Dots(sc.prettyobj):
 
     def __init__(self):
@@ -33,7 +41,7 @@ class Dots(sc.prettyobj):
         self.s = sc.autolist()
         self.c = sc.autolist()
         self.lines = sc.autolist()
-        self.cols = sc.objdict(ast='gold', sh='#47C7F4', spk='#0372A2')
+        self.cols = color_options
         np.random.seed(self.seed)
         self.make()
         self.logo()
@@ -175,7 +183,7 @@ class Dots(sc.prettyobj):
         plt.axis('off')
         plt.tight_layout()
         if save:
-            sc.savefig('starsim-sky-logo-v5.png')
+            sc.savefig(f'starsim-net-logo-{colkey}.png')
         plt.show()
         return fig
 
