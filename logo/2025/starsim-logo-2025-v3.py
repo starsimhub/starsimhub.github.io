@@ -8,11 +8,10 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
-colkey = 'v2'
+colkey = 'light'
 color_options = sc.objdict(
-    v1 = sc.objdict(ast='#004d89', sh='#ffc12f', spk='#30a1f4'),
-    v2 = sc.objdict(ast='k', sh='#ffc12f', spk='#135e4a'),
-    dark = sc.objdict(ast='#dddddd', sh='#ffc12f', spk='#135e4a'),
+    light = sc.objdict(core='k', ast='k', spk='#135e4a', sh='#ffc12f'),
+    dark = sc.objdict(core='#dddddd', ast='#135e4a', spk='#135e4a', sh='#ffc12f'),
 )[colkey]
 
 facecolor = 'k' if colkey == 'dark' else 'w'
@@ -99,24 +98,10 @@ class Dots(sc.prettyobj):
         for j in range(1,self.n_ast+1):
             self.add_line(0, j, self.cols.core)
 
-        for path in [
-                [1,18],
-                [16,6,17],
-                [5,15],
-                [12,4,14],
-                [10,3,11],
-                [9,2],
-                [8,1],
-            ]:
-            for k in range(len(path)-1):
-                i = path[k]
-                j = path[k+1]
-                self.add_line(i, j, self.cols.ast)
-
         return
 
     def make_spikes(self, perspective=1.0, make=True):
-        for j in range(2):
+        for j in range(1):
             f = perspective**(j+1)
             reg = self.dsp
             big = self.dsp*f
@@ -131,20 +116,22 @@ class Dots(sc.prettyobj):
                 else:
                     self.xy_sp += (x,y)
 
-        for i,j in [
-                [17,34],
-                [15,31],
-                [13,28],
-                [11,25],
-                [9,22],
-                [7,19],
+        for path in [
+                [2,9],
+                [3,11],
+                [4,13],
+                [5,15],
+                [6,17],
             ]:
-            self.add_line(i, j, self.cols.spk)
+            for k in range(len(path)-1):
+                i = path[k]
+                j = path[k+1]
+                self.add_line(i, j, self.cols.spk)
         return
 
     def make_shell(self):
         self.make_spikes(make=False)
-        for j in range(2):
+        for j in range(1):
             n = [self.n_sh, self.n_out][j]
             r = [self.r_sh, self.r_spk][j]
             for i in range(n):
@@ -157,12 +144,14 @@ class Dots(sc.prettyobj):
                 self.add_dot(x, y, size, self.cols.sh)
 
         for path in [
-                [18,35],
-                [33,16,15],
-                [30,14,29],
-                [14,13,12,26,27],
-                [10,24,23,9],
-                [7,8,20,7],
+                [3,10,2],
+                [8,1,18,6],
+                [6,16,15],
+                [11,12],
+                [14,5,16,17],
+                [8,9],
+                [12,4,14,13,12],
+                [7,8],
             ]:
             for k in range(len(path)-1):
                 i = path[k]
@@ -176,7 +165,7 @@ class Dots(sc.prettyobj):
         self.make_spikes()
         return
 
-    def logo(self, save=True, debug=True, ax=None):
+    def logo(self, save=True, debug=0, ax=None):
         if ax is None:
             fig = plt.figure(figsize=[4.5]*2, dpi=100, facecolor=facecolor)
             ax = fig.add_axes([0, 0, 1, 1])
@@ -199,7 +188,10 @@ class Dots(sc.prettyobj):
         # Plot lines
         for line in self.lines:
             i,j,c = line
-            ax.plot([df.x[i], df.x[j]], [df.y[i], df.y[j]], c=c, lw=self.lw, zorder=-10)
+            try:
+                ax.plot([df.x[i], df.x[j]], [df.y[i], df.y[j]], c=c, lw=self.lw, zorder=-10)
+            except:
+                print(i,j)
 
         ax.set_xlim(left=-1, right=1)
         ax.set_ylim(bottom=-1, top=1)
