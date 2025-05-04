@@ -8,21 +8,16 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
-colkey = 'v2'
+colkey = 'dark'
 color_options = sc.objdict(
-    blue = sc.objdict(ast='gold', sh='#47C7F4', spk='#0372A2'),
-    green = sc.objdict(ast='gold', sh='tab:green', spk='#C1272D'),
-    black = sc.objdict(ast='gold', sh='k', spk='tab:red'),
-    hybrid = sc.objdict(ast='gold', sh='#47C7F4', spk='k'),
-    lith = sc.objdict(ast='#FDB913', sh='#006A44', spk='#C1272D'),
-    ghana = sc.objdict(ast='#FCD20F', sh='#006B3D', spk='#CF0921'),
-    sky = sc.objdict(ast='gold', sh='#47C7F4', spk='#47C7F4'),
-    inv1 = sc.objdict(ast='#0372A2', sh='#47C7F4', spk='#FDB913'),
-    inv2 = sc.objdict(ast='k', sh='tab:green', spk='#C1272D'),
-    inv3 = sc.objdict(ast='k', sh='#FDB913', spk='#006A44'),
     v1 = sc.objdict(ast='#004d89', sh='#ffc12f', spk='#30a1f4'),
     v2 = sc.objdict(ast='k', sh='#ffc12f', spk='#135e4a'),
+    dark = sc.objdict(ast='#dddddd', sh='#ffc12f', spk='#135e4a'),
 )[colkey]
+
+facecolor = 'k' if colkey == 'dark' else 'w'
+textcolor = color_options.ast
+
 
 class Dots(sc.prettyobj):
 
@@ -183,7 +178,7 @@ class Dots(sc.prettyobj):
 
     def logo(self, save=True, debug=False, ax=None):
         if ax is None:
-            fig = plt.figure(figsize=[4.5]*2, dpi=100)
+            fig = plt.figure(figsize=[4.5]*2, dpi=100, facecolor=facecolor)
             ax = fig.add_axes([0, 0, 1, 1])
         else:
             fig = None
@@ -219,7 +214,7 @@ class Dots(sc.prettyobj):
     def full(self, save=True, debug=False):
         """ Full logo, with text """
         # Setup
-        fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100)
+        fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=facecolor)
         ax1 = fig.add_axes([0, 0, 1/4, 1])
         ax2 = fig.add_axes([1/4, 0, 3/4, 1])
         ax2.set_xlim(left=0, right=1)
@@ -233,7 +228,7 @@ class Dots(sc.prettyobj):
 
         # Title
         sc.fonts(add='fonts/KumbhSans-ExtraBold.ttf', use=True)
-        ax2.text(-0.025, 0.43, 'Starsim', size=230, verticalalignment='center')
+        ax2.text(-0.025, 0.43, 'Starsim', size=230, verticalalignment='center', color=textcolor)
         ax2.axis('off')
 
         if save:
