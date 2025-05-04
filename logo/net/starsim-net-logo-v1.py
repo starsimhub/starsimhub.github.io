@@ -1,7 +1,7 @@
 """
-Circle-virus network with gold asterisk in the middle.
+Circle-virus network with black asterisk in the middle.
 
-Now with lines.
+Now with label.
 """
 
 import numpy as np
@@ -159,7 +159,12 @@ class Dots(sc.prettyobj):
         return
 
     def logo(self, save=True, debug=False):
-        fig = plt.figure(dpi=300)
+        sc.fonts(add='fonts/KumbhSans-ExtraBold.ttf', use=True)
+        figsize = np.array([4.8, 4.8])
+        ratio = 7
+        figsize[0] *= ratio/2
+        fig = plt.figure(figsize=figsize, dpi=150)
+        plt.axes([0,0,1,1])
         df = self.df
 
         # Plot dots
@@ -179,11 +184,13 @@ class Dots(sc.prettyobj):
             i,j,c = line
             plt.plot([df.x[i], df.x[j]], [df.y[i], df.y[j]], c=c, lw=self.lw, zorder=-10)
 
-        plt.axis('square')
-        plt.xlim(left=-1, right=1)
+        plt.text(0.83, -0.1, 'Starsim', size=220, verticalalignment='center')
+
+        # plt.axis('square')
+        plt.xlim(left=-1, right=ratio-1)
         plt.ylim(bottom=-1, top=1)
         plt.axis('off')
-        plt.tight_layout()
+        # plt.tight_layout()
         if save:
             sc.savefig(f'starsim-net-logo-{colkey}.png')
         plt.show()

@@ -8,7 +8,7 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
-colkey = ['blue', 'green', 'black', 'hybrid', 'lith', 'ghana', 'sky', 'inv1', 'inv2', 'inv3'][-1]
+colkey = 'v2'
 color_options = sc.objdict(
     blue = sc.objdict(ast='gold', sh='#47C7F4', spk='#0372A2'),
     green = sc.objdict(ast='gold', sh='tab:green', spk='#C1272D'),
@@ -20,14 +20,17 @@ color_options = sc.objdict(
     inv1 = sc.objdict(ast='#0372A2', sh='#47C7F4', spk='#FDB913'),
     inv2 = sc.objdict(ast='k', sh='tab:green', spk='#C1272D'),
     inv3 = sc.objdict(ast='k', sh='#FDB913', spk='#006A44'),
+    v1 = sc.objdict(ast='#004d89', sh='#ffc12f', spk='#30a1f4'),
+    v2 = sc.objdict(ast='k', sh='#ffc12f', spk='#135e4a'),
 )[colkey]
 
 class Dots(sc.prettyobj):
 
-    def __init__(self):
+    def __init__(self, full=False):
         self.seed = 3
         self.cs = 1.8
-        self.ds = 1.0
+        self.dsp = 1.0
+        self.dsh = 1.0
         self.ms = 640 # Marker size
         self.ang = 0.25
         self.r_ast = 0.25
@@ -44,9 +47,16 @@ class Dots(sc.prettyobj):
         self.c = sc.autolist()
         self.lines = sc.autolist()
         self.cols = color_options
+        if 'core' not in self.cols:
+            self.cols.core = self.cols.ast
         np.random.seed(self.seed)
+        self.xy_sp = sc.autolist()
+        self.xy_sh = sc.autolist()
         self.make()
-        self.logo()
+        if full:
+            self.full()
+        else:
+            self.logo()
         return
 
     @property
@@ -85,14 +95,14 @@ class Dots(sc.prettyobj):
         return
 
     def make_asterisk(self):
-        self.add_dot(0, 0, self.cs, self.cols.ast)
+        self.add_dot(0, 0, self.cs, self.cols.core)
         for i in range(self.n_ast):
             ang = i/self.n_ast + self.ang
             x, y = self.p2e(self.r_ast, ang)
-            self.add_dot(x, y, self.ds, self.cols.ast)
+            self.add_dot(x, y, self.dsp, self.cols.ast)
 
         for j in range(1,self.n_ast+1):
-            self.add_line(0, j, self.cols.ast)
+            self.add_line(0, j, self.cols.core)
 
         for path in [
                 [1,18],
@@ -110,14 +120,46 @@ class Dots(sc.prettyobj):
 
         return
 
+    def make_spikes(self, perspective=1.0, make=True):
+        for j in range(2):
+            f = perspective**(j+1)
+            reg = self.dsp
+            big = self.dsp*f
+            sma = self.dsp/f
+            sizes = {0:reg, 1:sma, 2:big, 3:reg, 4:big, 5:sma}
+            r = [self.r_sh, self.r_spk][j]
+            for i in range(self.n_spk):
+                ang = i/self.n_spk + self.ang
+                x, y = self.p2e(r, ang)
+                if make:
+                    self.add_dot(x, y, sizes[i], self.cols.spk)
+                else:
+                    self.xy_sp += (x,y)
+
+        for i,j in [
+                [17,34],
+                [15,31],
+                [13,28],
+                [11,25],
+                [9,22],
+                [7,19],
+            ]:
+            self.add_line(i, j, self.cols.spk)
+        return
+
     def make_shell(self):
+        self.make_spikes(make=False)
         for j in range(2):
             n = [self.n_sh, self.n_out][j]
             r = [self.r_sh, self.r_spk][j]
             for i in range(n):
                 ang = i/n + self.ang
                 x, y = self.p2e(r, ang)
-                self.add_dot(x, y, self.ds, self.cols.sh)
+                size = 0
+                if (x,y) not in self.xy_sp:
+                    size = self.dsh
+                    self.xy_sh += (x,y)
+                self.add_dot(x, y, size, self.cols.sh)
 
         for path in [
                 [18,35],
@@ -133,37 +175,22 @@ class Dots(sc.prettyobj):
                 self.add_line(i, j, self.cols.sh)
         return
 
-    def make_spikes(self):
-        for j in range(2):
-            r = [self.r_sh, self.r_spk][j]
-            for i in range(self.n_spk):
-                ang = i/self.n_spk + self.ang
-                x, y = self.p2e(r, ang)
-                self.add_dot(x, y, self.ds, self.cols.spk)
-
-        for i,j in [
-                [17,34],
-                [15,31],
-                [13,28],
-                [11,25],
-                [9,22],
-                [7,19],
-            ]:
-            self.add_line(i, j, self.cols.spk)
-        return
-
     def make(self):
         self.make_asterisk()
         self.make_shell()
         self.make_spikes()
         return
 
-    def logo(self, save=True, debug=False):
-        fig = plt.figure(dpi=300)
+    def logo(self, save=True, debug=False, ax=None):
+        if ax is None:
+            fig = plt.figure(figsize=[4.5]*2, dpi=100)
+            ax = fig.add_axes([0, 0, 1, 1])
+        else:
+            fig = None
         df = self.df
 
         # Plot dots
-        plt.scatter(df.x, df.y, s=df.s*self.ms, c=df.c)
+        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c)
         used = set()
         if debug:
             for i in range(len(df)):
@@ -177,17 +204,44 @@ class Dots(sc.prettyobj):
         # Plot lines
         for line in self.lines:
             i,j,c = line
-            plt.plot([df.x[i], df.x[j]], [df.y[i], df.y[j]], c=c, lw=self.lw, zorder=-10)
+            ax.plot([df.x[i], df.x[j]], [df.y[i], df.y[j]], c=c, lw=self.lw, zorder=-10)
 
-        plt.axis('square')
-        plt.xlim(left=-1, right=1)
-        plt.ylim(bottom=-1, top=1)
-        plt.axis('off')
-        plt.tight_layout()
+        ax.set_xlim(left=-1, right=1)
+        ax.set_ylim(bottom=-1, top=1)
+        ax.axis('off')
         if save:
-            sc.savefig(f'starsim-net-logo-{colkey}.png')
+            fn = f'starsim-logo-2025-{colkey}.png'
+            sc.savefig(fn, transparent=True)
+            sc.runcommand(f'trim {fn}')
         plt.show()
         return fig
 
-dots = Dots()
+    def full(self, save=True, debug=False):
+        """ Full logo, with text """
+        # Setup
+        fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100)
+        ax1 = fig.add_axes([0, 0, 1/4, 1])
+        ax2 = fig.add_axes([1/4, 0, 3/4, 1])
+        ax2.set_xlim(left=0, right=1)
+        ax2.set_ylim(bottom=0, top=1)
+        if debug:
+            ax1.axhline()
+            ax2.axhline(0.5)
+
+        # Make logo
+        self.logo(save=False, ax=ax1)
+
+        # Title
+        sc.fonts(add='fonts/KumbhSans-ExtraBold.ttf', use=True)
+        ax2.text(-0.025, 0.43, 'Starsim', size=230, verticalalignment='center')
+        ax2.axis('off')
+
+        if save:
+            fn = f'starsim-logo-2025-{colkey}-full.png'
+            sc.savefig(fn, transparent=True)
+            sc.runcommand(f'trim {fn}')
+        plt.show()
+        return fig
+
+dots = Dots(full=True)
 
