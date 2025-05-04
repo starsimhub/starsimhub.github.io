@@ -12,15 +12,14 @@ colkey = 'light'
 color_options = sc.objdict(
     light = sc.objdict(core='k', ast='k', spk='#135e4a', sh='#ffc12f'),
     dark = sc.objdict(core='#dddddd', ast='#135e4a', spk='#135e4a', sh='#ffc12f'),
-)[colkey]
+)
+marker = [None, '$⬢$', '$♦$', '$✹$'][0]
 
-facecolor = 'k' if colkey == 'dark' else 'w'
-textcolor = color_options.ast
 
 
 class Dots(sc.prettyobj):
 
-    def __init__(self, full=False):
+    def __init__(self, full=False, colkey=colkey, marker=marker):
         self.seed = 3
         self.cs = 1.8
         self.dsp = 1.0
@@ -40,7 +39,10 @@ class Dots(sc.prettyobj):
         self.s = sc.autolist()
         self.c = sc.autolist()
         self.lines = sc.autolist()
-        self.cols = color_options
+        self.colkey = colkey
+        self.cols = color_options[colkey]
+        self.facecolor = 'k' if colkey == 'dark' else 'w'
+        self.textcolor = color_options.ast
         if 'core' not in self.cols:
             self.cols.core = self.cols.ast
         np.random.seed(self.seed)
@@ -147,9 +149,6 @@ class Dots(sc.prettyobj):
                 [3,10,2],
                 [8,1,18,6],
                 [6,16,15],
-                [11,12],
-                [14,5,16,17],
-                [8,9],
                 [12,4,14,13,12],
                 [7,8],
             ]:
@@ -165,16 +164,16 @@ class Dots(sc.prettyobj):
         self.make_spikes()
         return
 
-    def logo(self, save=True, debug=0, ax=None):
+    def logo(self, save=True, debug=False, ax=None):
         if ax is None:
-            fig = plt.figure(figsize=[4.5]*2, dpi=100, facecolor=facecolor)
+            fig = plt.figure(figsize=[4.5]*2, dpi=100, facecolor=self.facecolor)
             ax = fig.add_axes([0, 0, 1, 1])
         else:
             fig = None
         df = self.df
 
         # Plot dots
-        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c)
+        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c, marker=marker)
         used = set()
         if debug:
             for i in range(len(df)):
@@ -188,16 +187,13 @@ class Dots(sc.prettyobj):
         # Plot lines
         for line in self.lines:
             i,j,c = line
-            try:
-                ax.plot([df.x[i], df.x[j]], [df.y[i], df.y[j]], c=c, lw=self.lw, zorder=-10)
-            except:
-                print(i,j)
+            ax.plot([df.x[i], df.x[j]], [df.y[i], df.y[j]], c=c, lw=self.lw, zorder=-10)
 
         ax.set_xlim(left=-1, right=1)
         ax.set_ylim(bottom=-1, top=1)
         ax.axis('off')
         if save:
-            fn = f'starsim-logo-2025-{colkey}.png'
+            fn = f'starsim-logo-2025b-{colkey}.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
         plt.show()
@@ -206,7 +202,7 @@ class Dots(sc.prettyobj):
     def full(self, save=True, debug=False):
         """ Full logo, with text """
         # Setup
-        fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=facecolor)
+        fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=self.facecolor)
         ax1 = fig.add_axes([0, 0, 1/4, 1])
         ax2 = fig.add_axes([1/4, 0, 3/4, 1])
         ax2.set_xlim(left=0, right=1)
@@ -220,15 +216,15 @@ class Dots(sc.prettyobj):
 
         # Title
         sc.fonts(add='fonts/KumbhSans-ExtraBold.ttf', use=True)
-        ax2.text(-0.025, 0.43, 'Starsim', size=230, verticalalignment='center', color=textcolor)
+        ax2.text(-0.055, 0.42, 'Starsim', size=160, verticalalignment='center', color=self.textcolor)
         ax2.axis('off')
 
         if save:
-            fn = f'starsim-logo-2025-{colkey}-full.png'
+            fn = f'starsim-logo-2025b-{colkey}-full.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
         plt.show()
         return fig
 
-dots = Dots(full=False)
+dots = Dots(full=True)
 

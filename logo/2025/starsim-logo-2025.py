@@ -8,20 +8,18 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
-colkey = 'v2'
+colkey = 'light'
 color_options = sc.objdict(
-    v1 = sc.objdict(ast='#004d89', sh='#ffc12f', spk='#30a1f4'),
-    v2 = sc.objdict(ast='k', sh='#ffc12f', spk='#135e4a'),
-    dark = sc.objdict(ast='#dddddd', sh='#ffc12f', spk='#135e4a'),
-)[colkey]
+    light = sc.objdict(core='k', ast='k', spk='#135e4a', sh='#ffc12f'),
+    dark = sc.objdict(core='#dddddd', ast='#135e4a', spk='#135e4a', sh='#ffc12f'),
+)
+marker = [None, '$⬢$', '$♦$', '$✹$'][0]
 
-facecolor = 'k' if colkey == 'dark' else 'w'
-textcolor = color_options.ast
 
 
 class Dots(sc.prettyobj):
 
-    def __init__(self, full=False):
+    def __init__(self, full=False, colkey=colkey, marker=marker):
         self.seed = 3
         self.cs = 1.8
         self.dsp = 1.0
@@ -41,7 +39,10 @@ class Dots(sc.prettyobj):
         self.s = sc.autolist()
         self.c = sc.autolist()
         self.lines = sc.autolist()
-        self.cols = color_options
+        self.colkey = colkey
+        self.cols = color_options[colkey]
+        self.facecolor = 'k' if colkey == 'dark' else 'w'
+        self.textcolor = color_options.ast
         if 'core' not in self.cols:
             self.cols.core = self.cols.ast
         np.random.seed(self.seed)
@@ -176,16 +177,16 @@ class Dots(sc.prettyobj):
         self.make_spikes()
         return
 
-    def logo(self, save=True, debug=True, ax=None):
+    def logo(self, save=True, debug=False, ax=None):
         if ax is None:
-            fig = plt.figure(figsize=[4.5]*2, dpi=100, facecolor=facecolor)
+            fig = plt.figure(figsize=[4.5]*2, dpi=100, facecolor=self.facecolor)
             ax = fig.add_axes([0, 0, 1, 1])
         else:
             fig = None
         df = self.df
 
         # Plot dots
-        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c)
+        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c, marker=marker)
         used = set()
         if debug:
             for i in range(len(df)):
@@ -214,7 +215,7 @@ class Dots(sc.prettyobj):
     def full(self, save=True, debug=False):
         """ Full logo, with text """
         # Setup
-        fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=facecolor)
+        fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=self.facecolor)
         ax1 = fig.add_axes([0, 0, 1/4, 1])
         ax2 = fig.add_axes([1/4, 0, 3/4, 1])
         ax2.set_xlim(left=0, right=1)
