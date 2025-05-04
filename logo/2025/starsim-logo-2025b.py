@@ -8,18 +8,16 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
-colkey = 'light'
 color_options = sc.objdict(
-    light = sc.objdict(core='k', ast='k', spk='#135e4a', sh='#ffc12f'),
-    dark = sc.objdict(core='#dddddd', ast='#135e4a', spk='#135e4a', sh='#ffc12f'),
+    light = sc.objdict(ast='k', spk='#135e4a', sh='#ffc12f'),
+    dark = sc.objdict(ast='#dddddd', spk='#135e4a', sh='#ffc12f'),
 )
-marker = [None, '$⬢$', '$♦$', '$✹$'][0]
-
+marker = [None, '$⬢$'][0]
 
 
 class Dots(sc.prettyobj):
 
-    def __init__(self, full=False, colkey=colkey, marker=marker):
+    def __init__(self, colkey='light', marker=marker):
         self.seed = 3
         self.cs = 1.8
         self.dsp = 1.0
@@ -39,20 +37,10 @@ class Dots(sc.prettyobj):
         self.s = sc.autolist()
         self.c = sc.autolist()
         self.lines = sc.autolist()
-        self.colkey = colkey
-        self.cols = color_options[colkey]
-        self.facecolor = 'k' if colkey == 'dark' else 'w'
-        self.textcolor = color_options.ast
-        if 'core' not in self.cols:
-            self.cols.core = self.cols.ast
         np.random.seed(self.seed)
         self.xy_sp = sc.autolist()
         self.xy_sh = sc.autolist()
-        self.make()
-        if full:
-            self.full()
-        else:
-            self.logo()
+        self.make(colkey)
         return
 
     @property
@@ -158,7 +146,18 @@ class Dots(sc.prettyobj):
                 self.add_line(i, j, self.cols.sh)
         return
 
-    def make(self):
+    def set_mode(self, colkey):
+        """ Set light or dark mode """
+        self.colkey = colkey
+        self.cols = color_options[colkey]
+        if 'core' not in self.cols:
+            self.cols.core = self.cols.ast
+        self.facecolor = 'k' if colkey == 'dark' else 'w'
+        self.textcolor = self.cols.core
+        return
+
+    def make(self, colkey='light'):
+        self.set_mode(colkey)
         self.make_asterisk()
         self.make_shell()
         self.make_spikes()
@@ -193,7 +192,7 @@ class Dots(sc.prettyobj):
         ax.set_ylim(bottom=-1, top=1)
         ax.axis('off')
         if save:
-            fn = f'starsim-logo-2025b-{colkey}.png'
+            fn = f'starsim-logo-2025b-{self.colkey}.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
         plt.show()
@@ -216,15 +215,28 @@ class Dots(sc.prettyobj):
 
         # Title
         sc.fonts(add='fonts/KumbhSans-ExtraBold.ttf', use=True)
-        ax2.text(-0.055, 0.42, 'Starsim', size=160, verticalalignment='center', color=self.textcolor)
+        ax2.text(-0.055, 0.45, 'Starsim', size=160, verticalalignment='center', color=self.textcolor)
         ax2.axis('off')
 
         if save:
-            fn = f'starsim-logo-2025b-{colkey}-full.png'
+            fn = f'starsim-logo-2025b-{self.colkey}-full.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
         plt.show()
         return fig
 
-dots = Dots(full=True)
+    def both(self, save=True, debug=False):
+        for colkey in ['light', 'dark']:
+            self.make(colkey)
+            f1 = self.logo(save=save, debug=debug)
+            f2 = self.full(save=save, debug=debug)
+        return f1,f2
+
+
+if __name__ == '__main__':
+    dots = Dots()
+
+    # dots.logo(debug=1)
+    # dots.full(debug=1)
+    dots.both(debug=0)
 
