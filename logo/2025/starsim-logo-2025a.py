@@ -205,7 +205,7 @@ class Dots(sc.prettyobj):
         ax.set_ylim(bottom=-1, top=1)
         ax.axis('off')
         if save:
-            fn = f'starsim-logo-2025b-{self.colkey}.png'
+            fn = f'starsim-logo-2025a-{self.colkey}.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
         plt.show()
@@ -232,7 +232,7 @@ class Dots(sc.prettyobj):
         ax2.axis('off')
 
         if save:
-            fn = f'starsim-logo-2025b-{self.colkey}-full.png'
+            fn = f'starsim-logo-2025a-{self.colkey}-full.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
         plt.show()
