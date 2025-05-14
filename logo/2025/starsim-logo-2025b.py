@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 color_options = sc.objdict(
     light = sc.objdict(ast='k', spk='#135e4a', sh='#ffc12f'),
+    mid = sc.objdict(ast='#555555', spk='#1c8a6c', sh='#ffc12f'),
     dark = sc.objdict(ast='#dddddd', spk='#135e4a', sh='#ffc12f'),
 )
 marker = [None, '$⬢$'][0]
@@ -135,10 +136,11 @@ class Dots(sc.prettyobj):
 
         for path in [
                 [3,10,2],
-                [8,1,18,6],
-                [6,16,15],
+                [8,1],
+                [18,1],
                 [12,4,14,13,12],
-                [7,8],
+                [7,8,2],
+                [14,5,16,6],
             ]:
             for k in range(len(path)-1):
                 i = path[k]
@@ -226,7 +228,7 @@ class Dots(sc.prettyobj):
         return fig
 
     def both(self, save=True, debug=False):
-        for colkey in ['light', 'dark']:
+        for colkey in ['light', 'mid', 'dark']:
             self.make(colkey)
             f1 = self.logo(save=save, debug=debug)
             f2 = self.full(save=save, debug=debug)
@@ -236,7 +238,7 @@ class Dots(sc.prettyobj):
 if __name__ == '__main__':
     dots = Dots()
 
-    # dots.logo(debug=1)
+    # dots.logo(debug=0)
     # dots.full(debug=1)
     dots.both(debug=0)
 
