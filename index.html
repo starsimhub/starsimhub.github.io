@@ -63,6 +63,12 @@
             padding: 10px; /* Optional: For spacing */
             text-align: left; /* Optional: Center text */
         }
+        .nav-item .header_link {
+            transition: font-weight 0.3s ease;
+        }
+        .nav-item .header_link.active {
+            font-weight: bold;
+        }
     </style>
 
 </head>
@@ -84,14 +90,14 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbarToggler">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="#what" class="header_link"> What is Starsim?</a></li>
-					<li class="nav-item"><a href="#why" class="header_link"> Why Starsim?</a></li>
-					<li class="nav-item"><a href="#installation" class="header_link"> Installation</a></li>
-					<li class="nav-item"><a href="#examples" class="header_link"> Examples</a></li>
-					<li class="nav-item"><a href="#models" class="header_link"> Models</a></li>
-					<li class="nav-item"><a href="#events" class="header_link"> Events</a></li>
-					<li class="nav-item"><a href="#paper" class="header_link"> Paper</a></li>
-					<li class="nav-item"><a href="#contact" class="header_link"> Contact</a></li>
+					<li class="nav-item"><a href="#what" class="header_link nav-link"> What is Starsim?</a></li>
+					<li class="nav-item"><a href="#why" class="header_link nav-link"> Why Starsim?</a></li>
+					<li class="nav-item"><a href="#installation" class="header_link nav-link"> Installation</a></li>
+					<li class="nav-item"><a href="#examples" class="header_link nav-link"> Examples</a></li>
+					<li class="nav-item"><a href="#models" class="header_link nav-link"> Models</a></li>
+					<li class="nav-item"><a href="#events" class="header_link nav-link"> Events</a></li>
+					<li class="nav-item"><a href="#paper" class="header_link nav-link"> Paper</a></li>
+					<li class="nav-item"><a href="#contact" class="header_link nav-link"> Contact</a></li>
 				</ul>
 			</div>
 		</div>
@@ -542,7 +548,7 @@ Starsim: A fast, flexible toolbox for agent-based modeling of health and disease
 			<div class="row footrow" style="padding: 50px 0px;">
 				<nav class="footer-nav">
 					<div>
-					© 2024 Bill & Melinda Gates Foundation
+					© 2024-2025 Bill & Melinda Gates Foundation
 					<br><br>
 					Starsim is being developed by the <a href="https://idmod.org">Institute for Disease Modeling</a>, the <a href="https://burnet.edu.au">Burnet Institute</a>, and other collaborators.
 					<br><br>
@@ -559,16 +565,51 @@ Starsim: A fast, flexible toolbox for agent-based modeling of health and disease
 		</div>
 	</footer>
 
+	<!-- Core JS Files -->
+	<script src="./assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+	<script src="./assets/js/prism.js" type="text/javascript"></script>
+	<script src="./assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
+	<script src="./assets/js/popper.js" type="text/javascript"></script>
+	<script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="./assets/js/bootstrap-switch.min.js"></script>
+	<script src="./assets/js/paper-kit.js?v=2.1.0"></script>
+
+	<script>
+		$(document).ready(function() {
+			// Function to check if element is in viewport
+			function isInViewport(element) {
+				const rect = element.getBoundingClientRect();
+				return (
+					rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.5 &&
+					rect.bottom >= 0
+				);
+			}
+
+			// Function to update active nav item
+			function updateActiveNav() {
+				const sections = ['what', 'why', 'installation', 'examples', 'models', 'events', 'paper', 'contact'];
+				
+				// Remove active class from all nav items
+				$('.header_link').removeClass('active');
+				
+				// Find the first section in viewport
+				for (const section of sections) {
+					const element = document.getElementById(section);
+					if (element && isInViewport(element)) {
+						$(`.header_link[href="#${section}"]`).addClass('active');
+						break;
+					}
+				}
+			}
+
+			// Update on scroll
+			$(window).on('scroll', updateActiveNav);
+			
+			// Initial check
+			updateActiveNav();
+		});
+	</script>
+
 </body>
-
-<!-- Core JS Files -->
-<script src="./assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="./assets/js/prism.js" type="text/javascript"></script>
-<script src="./assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
-<script src="./assets/js/popper.js" type="text/javascript"></script>
-<script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="./assets/js/bootstrap-switch.min.js"></script>
-<script src="./assets/js/paper-kit.js?v=2.1.0"></script>
-
 
 </html>
