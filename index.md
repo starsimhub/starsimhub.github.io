@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="./assets/img/favicon.ico">
+	<link rel="apple-touch-icon" sizes="76x76" href="./assets/img/starsim-horiz.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+	<title>Starsim: Agent-based disease modeling</title>
+	<link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
+	<link href="./assets/css/demo.css" rel="stylesheet" />
+	<link href="./assets/css/prism.css" rel="stylesheet" />
+	<link href="./assets/css/prism-lite.css" rel="stylesheet" />
+	<script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
+
+	<meta name="description" content="Starsim is a flexible framework for agent-based modeling of health and disease.">
+
+	<meta property="og:site_name" content="Starsim">
+	<meta property="og:title" content="Starsim: Agent-based disease modeling">
+	<meta property="og:description" content="Starsim is a flexible framework for agent-based modeling of health and disease. ">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://starsim.org/">
+	<meta property="og:image" content="https://starsim.org/assets/img/starsim-horiz.png">
+
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NK4K647');</script>;
+
+	<!-- Fonts and icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300..700&display=swap" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700|Work+Sans|Material+Icons' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+	<!-- Syntax highlighting -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+	<style>
+        .table {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .row {
+            display: flex;
+            width: 100%;
+        }
+        .lcell {
+            flex: 1;
+            border: 0px solid #ccc; /* Optional: For visual reference */
+            padding: 10px; /* Optional: For spacing */
+            text-align: right; /* Optional: Center text */
+        }
+		.rcell {
+            flex: 1;
+            border: 0px solid #ccc; /* Optional: For visual reference */
+            padding: 10px; /* Optional: For spacing */
+            text-align: left; /* Optional: Center text */
+        }
+		.header_link {
+			font-size: 18px;
+		}
+		.header_link.active {
+			font-weight: bold;
+			color: rgb(255, 243, 216);
+		}
+    </style>
+
+</head>
+
+
+<body>
+	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NK4K647" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+	<nav class="navbar navbar-expand-lg fixed-top" color-on-scroll="450">
+
+		<div class="container">
+			<div class="navbar-translate">
+				<a class="navbar-brand" href="https://starsim.org/"><h1 style="font-size:32px;margin:0;padding:0; font-weight:300;"><img src="./assets/img/starsim-horiz-white.png" id="header_logo" style="width:200px; margin-top:-10px;" alt="Starsim logo"></h1></a>
+
+				<button class="navbar-toggler navbar-toggler-right navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-bar"></span>
+					<span class="navbar-toggler-bar"></span>
+					<span class="navbar-toggler-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarToggler">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a href="#what" class="header_link"> What is Starsim?</a></li>
+					<li class="nav-item"><a href="#why" class="header_link"> Why Starsim?</a></li>
+					<li class="nav-item"><a href="#installation" class="header_link"> Installation</a></li>
+					<li class="nav-item"><a href="#examples" class="header_link"> Examples</a></li>
+					<li class="nav-item"><a href="#models" class="header_link"> Models</a></li>
+					<li class="nav-item"><a href="#events" class="header_link"> Events</a></li>
+					<li class="nav-item"><a href="#paper" class="header_link"> Paper</a></li>
+					<li class="nav-item"><a href="#contact" class="header_link"> Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="wrapper" markdown="1">
+
+		<div class="page-header page-header-small" style="background-image: url('./assets/img/background-network-v2.jpg');">
+			<div class="container">
+				<div class="filter"></div>
+				<div class="motto">
+					<h1 style="padding-top:40px; font-weight:bold; font-size:3em;">A fast, flexible agent-based disease modeling framework</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="main">
+			<div class="section" style="padding:0px;">
+				<div class="container">
+
+					<!-- What is Starsim? -->
+					<section id="what">
+						<div class="row">
+							<div class="col-md-12 ml-auto mr-auto">
+								<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">What is Starsim?</h2>
+								<div class="row">
+									<div class="col-md-9 ml-auto mr-auto" markdown="1">
+
+Starsim is a framework for modeling the spread of diseases among agents via dynamic transmission networks. Starsim supports:
+
+- **Co-transmission** of multiple diseases at once, capturing how they interact biologically and behaviorally  
+- **Non-infectious diseases**, either on their own or as factors affecting the transmission or mortality of infectious diseases  
+- Detailed modeling of **mother-child relationships** starting from conception, allowing investigation of infant and childhood diseases  
+- Multiple types of **transmission network**, including theoretical (e.g. Erdős–Rényi) and realistic (e.g. age-assortative sexual partnerships)  
+- Different **intervention types**, such as vaccines or treatments, and showing their impact through different delivery methods such as mass campaigns or targeted outreach  
+- Automated **calibration** to data, plus careful handling of random numbers to minimize variance between simulations  
+- **AI-accelerated development** via our dedicated [MCP server](https://github.com/starsimhub/starsim_ai) that you can use with your favorite code editor  
+
+Starsim is available for both Python and R, and is fully open-source under the MIT license.
+
+									</div>
+								</div>
+							</div>
+						</div>  
+					</section> <!-- end of row -->
+
+					<!-- external links (top) -->
+					<div class="col-md-12 ml-auto mr-auto">
+						<ul id="icons-links" class="text-center" style="margin-top:0px">
+							<a href="https://docs.starsim.org" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/octicons/code.svg?size=30&color=ffffff">&nbsp;&nbsp;Docs<div class="ripple-container"></div></button></a>
+							<a href="https://docs.idmod.org/projects/starsim/en/latest/tutorials.html" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/fontawesome/lightbulb-o.svg?size=30&color=ffffff" height="30">&nbsp;Tutorials<div class="ripple-container"></div></button></a>
+							<a href="https://github.com/starsimhub/starsim" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/octicons/mark-github.svg?size=30&color=ffffff">&nbsp;&nbsp;Code<div class="ripple-container"></div></button></a>
+							<a href="https://r.starsim.org" target="_blank"><button class="btn btn-primary"><img src="https://icongr.am/octicons/graph.svg?size=30&color=ffffff">&nbsp;&nbsp;R Docs<div class="ripple-container"></div></button></a>
+						</ul>
+					</div>
+
+					<!-- Why Starsim? -->
+					<section id="why">
+						<div class="row">
+							<div class="col-md-12 ml-auto mr-auto">
+								<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Why Starsim?</h2>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="card card-blog card-top-shadow">
+											<div class="card-body" style="min-height: 300px;">
+												<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">High performance</h2>
+													<div class="card-image text-center">
+														<img class="img img-raised" src="https://icongr.am/fontawesome/flash.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
+													</div>
+												<p class="card-description text-left" style="margin-top:10px;">
+													Array computations and just-in-time <a href="https://numba.pydata.org/">compilation</a> 
+													mean Starsim achieves C++ speeds from pure Python. Starsim runs on
+													laptops, not supercomputers, via either R or Python.
+												</p>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="card card-blog card-top-shadow">
+											<div class="card-body" style="min-height: 300px;">
+												<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">Easy to use</h2>
+												<div class="card-image text-center">
+													<img class="img img-raised" src="https://icongr.am/fontawesome/angellist.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
+												</div>
+												<p class="card-description text-left" style="margin-top:10px;">
+													Starsim's modular structure means you can reuse or adapt existing disease models, transmission networks, and demographics.
+													Mix, match, and modify any module you want.
+												</p>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="card card-blog card-top-shadow">
+											<div class="card-body" style="min-height: 300px;">
+												<h2 class="card-category text-center" style="font-weight:bold; font-size: 18px;">Global community</h2>
+												<div class="card-image text-center">
+													<img class="img img-raised" src="https://icongr.am/fontawesome/globe.svg?color=0b1b30" style="width:17%; margin:5px 0; padding: 5px 0;">
+												</div>
+												<p class="card-description text-left" style="margin-top:10px;">
+													Starsim is a community, not a product. We believe that diversity, transparency, and collaboration  
+													are essential for achieving real-world health outcomes.
+												</p>
+											</div>
+										</div>
+									</div>
+
+								</div>  <!-- end of row -->
+							</div>  <!-- end of col-12 -->
+
+						</div>  <!-- end of row -->
+					</section>
+
+					<!-- Installation -->
+					<section id="installation">
+						<div class="row">
+							<div class="col-md-12 ml-auto mr-auto">
+								<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Installation</h2>
+								<div class="row">
+									<div class="col-md-9 ml-auto mr-auto">
+										<p class="text-left" style="padding-top:0px;">
+											If you have Python, you can install Starsim:<br>
+										</p>
+										<p class="text-center">									
+	<pre><code class="language-bash">> pip install starsim</code></pre>
+										</p>
+									</div>
+									<div class="col-md-9 ml-auto mr-auto">
+										<p class="text-left" style="padding-top:0px;">
+											Or from R:<br>
+										</p>
+										<p class="text-center">
+	<pre><code class="language-bash">devtools::install_github("starsimhub/rstarsim")
+library(starsim)
+init_starsim()</code></pre>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>  <!-- end of row -->
+					</section>
+
+
+					<!-- Examples -->
+					<section id="examples">
+						<div class="row">
+							<div class="col-md-12 ml-auto mr-auto">
+
+								<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Examples</h2>
+								<div class="profile-tabs" style="margin:0px;">
+
+									<div class="nav-tabs-navigation  col-md-12 ml-auto mr-auto">
+										<div class="nav-tabs-wrapper">
+											<ul id="tabs" class="nav nav-tabs" role="tablist">
+												<li class="nav-item ">
+													<a class="nav-link nav-link-narrow active" href="#code_basic" data-toggle="tab" role="tab" aria-selected="true"><span class="tablist-text">Simple example</span></a>
+												</li>
+												<li class="nav-item ">
+													<a class="nav-link nav-link-narrow" href="#code_scenarios" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">Running scenarios</span></a>
+												</li>
+												<li class="nav-item ">
+													<a class="nav-link nav-link-narrow" href="#code_vaccine" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">Custom interventions</span></a>
+												</li>
+												<li class="nav-item ">
+													<a class="nav-link nav-link-narrow" href="#code_r" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">R example</span></a>
+												</li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="tab-content col-md-9 ml-auto mr-auto" style="padding-left:3px; padding-right:3px;">
+										<div class="tab-pane active" id="code_basic" role="tabpanel">
+											<div class="row">
+												<div class="col-md-12">
+													<p class="space-top text-left" style="padding-top:0px;">
+														<p class="space-top" style="margin-top:0px;">This is what an extremely simple Starsim simulation looks like:</p>
+														<ol>
+															<li>Create a susceptible-infectious-recovered (SIR) disease model with default parameters.</li>
+															<li>Create a random transmission network between agents (also with default parameters).</li>
+															<li>Run the simulation and plot the results.</li>
+														</ol>
+<pre><code class="language-python">import starsim as ss
+
+sim = ss.Sim(diseases='sir', networks='random') # Create the sim
+sim.run() # Run the sim
+sim.plot() # Plot the results
+</code></pre>
+	<img src="assets/img/example-basic.png" width="100%" class="card-top-shadow text-center">
+													</div>
+												</div>
+											</div>
+
+											<div class="tab-pane" id="code_scenarios" role="tabpanel">
+												<div class="row">
+													<div class="col-md-12">
+														<p class="space-top text-left" style="padding-top:0px;">
+															You can easily customize model parameters, and run simulations in parallel:<br/>
+															<ol>
+																<li>Create a dictionary defining the parameters of the simulation.</li>
+																<li>Modify only those parameters you want to differ between scenarios.</li>
+																<li>Run the simulations in parallel, and plot the results you are interested in.</li>
+															</ol>
+<pre><code class="language-python">import starsim as ss
+import sciris as sc
+
+# Set the parameters for the baseline simulation
+pars1 = sc.objdict( # Note: can also use regular Python dictionary
+	n_agents = 10_000,     # Number of agents to simulate
+	networks = sc.objdict( # *Networks* add detail on how the agents interact with each other
+		type = 'random',   # Here, we use a 'random' network
+		n_contacts = 4     # Each person has an average of 4 contacts with other people
+	),
+	diseases = sc.objdict( # *Diseases* add detail on what diseases to model
+		type = 'sis',      # Here, we're creating an SIS disease
+		init_prev = 0.1,   # Proportion of the population initially infected
+		beta = 0.1,        # Probability of transmission between contacts
+	)
+)
+
+# Make a modified version of the parameters for the scenario
+pars2 = pars1.copy(deep=True)
+pars2.diseases.beta = 0.2
+
+# Create the simulations
+s1 = ss.Sim(pars1, label='Low transmission')
+s2 = ss.Sim(pars2, label='High transmission')
+
+# Run and plot the simulations
+msim = ss.parallel(s1, s2)
+msim.plot('sis_n_infected')
+</code></pre>
+<img src="assets/img/example-scenarios.png" width="100%" class="card-top-shadow text-center">
+													</div>
+												</div>
+											</div>
+
+											<div class="tab-pane" id="code_vaccine" role="tabpanel">
+												<div class="row">
+													<div class="col-md-12">
+														<p class="space-top text-left" style="padding-top:0px;">
+															Everything in Starsim can be customized, including diseases, demographics, and intervention. 
+															This example shows how to write custom interventions, namely a vaccine product and vaccination campaign:<br/>
+<pre><code class="language-python">import starsim as ss
+import matplotlib.pyplot as plt
+
+# Define the simulation parameters
+pars = dict(
+	n_agents = 20_000,
+	birth_rate = 20,
+	death_rate = 15,
+	networks = dict(
+		type = 'random',
+		n_contacts = 4
+	),
+	diseases = dict(
+		type = 'sir',
+		dur_inf = 10,
+		beta = 0.1,
+	)
+)
+
+# Create the product: a vaccine with 50% efficacy
+my_vaccine = ss.sir_vaccine(efficacy=0.5)
+
+# Create the vaccine campaign
+campaign = ss.routine_vx(
+	start_year = 2015,    # Begin vaccination in 2015
+	prob = 0.2,           # 20% coverage
+	product = my_vaccine  # Use the MyVaccine product
+)
+
+# Now create two sims: a baseline sim and one with the intervention
+sim_base = ss.Sim(pars=pars)
+sim_intv = ss.Sim(pars=pars, interventions=campaign)
+
+# Run sims in parallel
+sims = ss.parallel(sim_base, sim_intv).sims
+base = sims[0].results
+vax = sims[1].results
+
+# Plot
+plt.figure()
+plt.plot(base.yearvec, base.sir.prevalence, label='Baseline')
+plt.plot(vax.yearvec, vax.sir.prevalence, label='Vaccine')
+plt.axvline(x=2015, color='k', ls='--')
+plt.title('Vaccine impact')
+plt.xlabel('Year')
+plt.ylabel('Prevalence')
+plt.legend()
+</code></pre>
+<img src="assets/img/example-vaccine.png" width="100%" class="card-top-shadow text-center">
+													</div>
+												</div>
+											</div>
+
+											<div class="tab-pane" id="code_r" role="tabpanel">
+												<div class="row">
+													<div class="col-md-12">
+														<p class="space-top text-left" style="padding-top:0px;">
+															<p class="space-top" style="margin-top:0px;">Starsim can be run from R just as easily as from Python:</p>
+<pre><code class="language-r"># Load Starsim
+library(starsim)
+load_starsim()
+
+# Set the simulation parameters
+pars <- list(
+	n_agents = 10000,
+	birth_rate = 20,
+	death_rate = 15,
+	networks = list(
+		type = 'randomnet',
+		n_contacts = 4
+	),
+	diseases = list(
+		type = 'sir',
+		dur_inf = 10,
+		beta = 0.1
+	)
+)
+
+# Create, run, and plot the simulation
+sim <- ss$Sim(pars)
+sim$run()
+sim$diseases$sir$plot()
+</code></pre>
+<img src="assets/img/example-r.png" width="100%" class="card-top-shadow text-center">
+														</div>
+													</div>
+												</div>
+
+									</div>  <!-- end of tab-content-->
+								</div>  <!-- end of profile-tabs -->
+							</div>  <!-- end of col -->
+
+						</div>  <!-- end of row -->
+					</section>
+
+					<!-- Models -->
+					<section id="models">
+						<div class="row">
+							<div class="col-md-12 ml-auto mr-auto">
+								<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Models</h2>
+								<div class="row">
+									<div class="col-md-9 ml-auto mr-auto">
+										<p class="text-left" style="padding-top:0px;">
+											The Starsim ecosystem currently consists of the following models:
+										</p>
+										<img src="assets/img/starsim-spokes.png" width="100%" class="card-top-shadow text-center">
+										<p>
+											<br>
+											Since the Starsim framework was only released in mid 2024, most of these models are still under development and are
+											not yet available for public use. However, STIsim is <a href="https://stisim.org">available on GitHub</a>, 
+											and Gavi Outbreaks <a href="https://www.medrxiv.org/content/10.1101/2024.06.02.24308241v1.full">has been published</a>.
+											Other models based on Starsim principles (<a href="https://stisim.org">Covasim</a>, 
+											<a href="https://hpvsim.org">HPVsim</a>, and <a href="https://fpsim.org">FPsim</a>) are also available.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Events -->
+					<section id="events">
+						<div class="row">
+							<div class="col-md-12 ml-auto mr-auto">
+								<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Events</h2>
+								<div class="row">
+									<div class="col-md-9 ml-auto mr-auto">
+										<h6>Upcoming events</h6>
+										<div class="table">
+											<p style="margin-left: 50px;">No events currently scheduled; however, we are planning several training workshops for 2025. Please email us if you would be interested in participating.</p>
+										</div>
+										
+										<h6>Past events</h6>
+										<div class="table">
+											<div class="row">
+												<div class="lcell"><b>Talk @ MIDAS 2024</b><br>Nov. 18, 2024: Silver Spring, USA</div>
+												<div class="rcell">An introductory talk on Starsim was given at the 2024 
+													<a href="https://midasnetwork.us/midas-2024/">MIDAS Conference</a>.
+													Slides are available <a href="https://docs.google.com/presentation/d/160gNQ89wNaZf9XTjhj5-H3TMB--vX5FnnnqQz2QgdL8/edit">here</a>.
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="lcell"><b>Talk @ IDM Conference 2024</b><br>Nov. 8, 2024: Bangkok, Thailand</div>
+												<div class="rcell">A talk introducing Starsim was given at the 2024 
+													<a href="https://idmconference.net">Infectious Disease Modelling Conference</a>.
+													Slides are available <a href="https://docs.google.com/presentation/d/1bVG_HJxoT07UG6YqR5vaH8jDtt2VsgsSOHkuEpVvww0/edit">here</a>.
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="lcell"><b>Starsim Learning Day @ IDM Symposium</b><br>Oct. 3, 2024: Seattle, USA</div>
+												<div class="rcell">We conducted a full-day information and training session on Starsim as part of the 2024 IDM Symposium.
+													Course content is available <a href="https://learningday2024.starsim.org">here</a>.</div>
+											</div>
+
+											<div class="row">
+												<div class="lcell"><b>Poster @ AIDS 2024</b><br>Jul. 25, 2024: Munich, Germany</div>
+												<div class="rcell">A poster on using Starsim to model HIV-STI coinfection was presented at the <a href="https://www.iasociety.org/conferences/aids2024">AIDS 2024</a> conference.
+													The poster is available <a href="https://docs.google.com/presentation/d/1ObX11ExrtueXWAsPqPhV01SRoRLXDr5dB2AtKKhcZuk/edit">here</a>.</div>
+											</div>
+
+											<div class="row">
+												<div class="lcell"><b>Starsim Launch @ Scipy 2024</b><br>Jul. 10, 2024: Tacoma, USA</div>
+												<div class="rcell">Starsim v1.0 was officially launched at the <a href="https://www.scipy2024.scipy.org/">SciPy 2024</a> conference.
+													The slides from the talk are available <a href="https://docs.google.com/presentation/d/13kWAiYRiPvlWXDitE5UVNlsrxOMPjG1sSPd2gsMqoQU/edit">here</a>.</div>
+											</div>
+
+											<div class="row">
+												<div class="lcell"><b>Agent-Based Modelling Training</b><br>Apr. 8-19, 2024: Nairobi, Kenya</div>
+												<div class="rcell">In collaboration in the <a href="https://aphrc.org/">African Population & Health Research Center</a> (APHRC)
+													and the <a href="https://cema.africa/">Center for Epidemiological Modelling and Analysis</a> (CEMA), we conducted a workshop
+													on agent-based modeling, including Starsim. The brochure is available <a href="https://drive.google.com/file/d/1Ya1S7RvRI3U_EQscRWpmpF7cILTELgAC/view">here</a>;
+													other materials are available upon request.
+													</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+				<!-- Paper -->
+				<section id="paper">
+					<div class="row" style="margin-top:0px;">
+						<div class="col-md-12 ml-auto mr-auto">
+							<div class="row" style="margin-top:0px;">
+								<div class="col-md-12 ml-auto mr-auto text-center">
+									<h2 style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Paper</h2>
+									<p class="text-left">Starsim has not yet been published. But if you want to cite it, please use:</p>
+	<pre class="prettyprint_pub" style="margin-top:0px; margin-bottom:10px;">
+	Cliff Kerr, Robyn Stuart, Romesh Abeysuriya, Jamie Cohen, Paula Sanz-Leon, Alina Muellenmeister, Daniel Klein (2024).
+	Starsim: A fast, flexible toolbox for agent-based modeling of health and disease. In preparation.</pre>
+								</div>
+							</div>
+						</div>
+					</div>  <!-- end of row -->
+				</section>
+
+				<!-- Contact -->
+				<section id="contact">
+					<div class="row" style="margin-top:0px;">
+						<div class="col-md-12 ml-auto mr-auto">
+							<div class="row" style="margin-top:0px;">
+								<div class="col-md-12 ml-auto mr-auto text-center">
+									<h2 style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Contact</h2>
+									<p>Have questions? Want to collaborate? We'd love to hear from you!</p>
+									<ul id="icons-links" class="text-center" style="margin-top:10px;">
+										<a href="mailto: info@starsim.org"><button class="btn btn-primary" style="font-weight:normal;"> info@starsim.org<div class="ripple-container"></div></button></a>
+									</ul>
+									<img src="assets/img/starsim-team.png" width="100%" class="text-center">
+								</div>
+							</div>
+						</div>
+					</div>  <!-- end of row -->
+				</section>
+
+				<ul id="icons-links" class="text-center" style="margin-top:60px;">
+				</ul>
+
+				</div>  <!-- end of container -->
+			</div>  <!-- end of section -->
+		</div>  <!-- end of main -->
+	</div>  <!-- end of wrapper -->
+
+	<footer class="footer footer-black">
+		<div class="container footcontainer">
+			<div class="row footrow" style="padding: 50px 0px;">
+				<nav class="footer-nav">
+					<div>
+						© 2024-2025 Gates Foundation
+						<br><br>
+						Starsim is being developed by the <a href="https://idmod.org">Institute for Disease Modeling</a>, the <a href="https://burnet.edu.au">Burnet Institute</a>, and other collaborators.
+						<br><br>
+						<a href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice">Privacy & cookies</a> | <a href="https://www.gatesfoundation.org/Terms-of-Use">Terms of use</a>
+					</div>
+				</nav>
+				<div class="credits ml-auto">
+					<span class="copyright">
+						Starsim is distributed under the MIT License to provide others with a better understanding of our research and an opportunity to build upon it for their own work. We make no representations that the code works as intended or that we will provide support, address issues that are found, or accept pull requests. You are welcome to 
+						<a href="https://github.com/starsimhub/starsim/fork">create your own fork</a> and modify the code to suit your own modeling needs as permitted under the MIT License.
+					</span>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+<!-- Core JS Files -->
+<script src="./assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="./assets/js/prism.js" type="text/javascript"></script>
+<script src="./assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
+<script src="./assets/js/popper.js" type="text/javascript"></script>
+<script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="./assets/js/bootstrap-switch.min.js"></script>
+<script src="./assets/js/paper-kit.js?v=2.1.0"></script>
+
+<!-- "Scrollspy" to highlight the active section in the navbar -->
+<script>
+	const changeNav = (entries, observer) => {
+		entries.forEach((entry) => {
+			if(entry.isIntersecting && entry.intersectionRatio >= 0.85) {
+				document.querySelector('.active').classList.remove('active');
+				// get id of the intersecting section
+				const id = entry.target.getAttribute('id');
+				// find matching link & add appropriate class
+				const newLink = document.querySelector(`[href="#${id}"]`).classList.add('active');
+			}
+		});
+	}
+
+	const options = {
+		threshold: 0.85
+	}
+
+	const observer = new IntersectionObserver(changeNav, options);
+
+	// target the elements to be observed
+	const sections = document.querySelectorAll('section');
+	sections.forEach((section) => {
+		observer.observe(section);
+	});
+</script>
+
+</body>
+</html>
