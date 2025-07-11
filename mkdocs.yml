@@ -1,0 +1,31 @@
+site_name: "Starsim: Agent-based disease modeling"
+site_url: https://starsim.org/
+docs_dir: docs
+nav:
+  - Home: index.md
+  - What is Starsim?: what.md
+  - Why Starsim?: why.md
+  - Installation: installation.md
+  - Examples: examples.md
+  - Models: models.md
+  - Events: events.md
+  - Paper: paper.md
+  - Contact: contact.md
+extra_css:
+  - assets/css/bootstrap.min.css
+  - assets/css/paper-kit.css
+  - assets/css/demo.css
+  - assets/css/prism.css
+  - assets/css/prism-lite.css
+extra_javascript:
+  - assets/js/jquery-3.2.1.min.js
+  - assets/js/prism.js
+  - assets/js/jquery-ui-1.12.1.custom.min.js
+  - assets/js/popper.js
+  - assets/js/bootstrap.min.js
+  - assets/js/bootstrap-switch.min.js
+  - assets/js/paper-kit.js?v=2.1.0
+theme:
+  name: null
+  custom_dir: null
+  language: en 
