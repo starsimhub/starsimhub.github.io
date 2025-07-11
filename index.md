@@ -75,7 +75,7 @@
 </head>
 
 
-<body>
+<body markdown="1">
 	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NK4K647" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 	<nav class="navbar navbar-expand-lg fixed-top" color-on-scroll="450">
 
@@ -114,16 +114,16 @@
 			</div>
 		</div>
 
-		<div class="main">
-			<div class="section" style="padding:0px;">
-				<div class="container">
+		<div class="main" markdown="1">
+			<div class="section" style="padding:0px; markdown="1"">
+				<div class="container" markdown="1">
 
 					<!-- What is Starsim? -->
-					<section id="what">
-						<div class="row">
-							<div class="col-md-12 ml-auto mr-auto">
+					<section id="what" markdown="1">
+						<div class="row" markdown="1">
+							<div class="col-md-12 ml-auto mr-auto markdown="1"">
 								<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">What is Starsim?</h2>
-								<div class="row">
+								<div class="row" markdown="1">
 									<div class="col-md-9 ml-auto mr-auto" markdown="1">
 
 Starsim is a framework for modeling the spread of diseases among agents via dynamic transmission networks. Starsim supports:
