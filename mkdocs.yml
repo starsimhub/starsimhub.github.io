@@ -26,6 +26,4 @@ extra_javascript:
   - assets/js/bootstrap-switch.min.js
   - assets/js/paper-kit.js?v=2.1.0
 theme:
-  name: null
-  custom_dir: null
-  language: en 
+  name: material 
