@@ -653,18 +653,20 @@ sim$diseases$sir$plot()
 <script>
 	const changeNav = (entries, observer) => {
 		entries.forEach((entry) => {
-			if(entry.isIntersecting && entry.intersectionRatio >= 0.85) {
-				document.querySelector('.active').classList.remove('active');
+			if(entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+				const currentActive = document.querySelector('.navbar-nav .header_link.active');
+				if (currentActive) currentActive.classList.remove('active');
 				// get id of the intersecting section
 				const id = entry.target.getAttribute('id');
 				// find matching link & add appropriate class
-				const newLink = document.querySelector(`[href="#${id}"]`).classList.add('active');
+				const newLink = document.querySelector(`.navbar-nav [href="#${id}"]`);
+				if (newLink) newLink.classList.add('active');
 			}
 		});
 	}
 
 	const options = {
-		threshold: 0.85
+		threshold: 0.55
 	}
 
 	const observer = new IntersectionObserver(changeNav, options);
