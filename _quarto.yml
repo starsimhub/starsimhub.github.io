@@ -5,7 +5,7 @@ project:
 website:
   title: "Starsim: Agent-based disease modeling"
   navbar: false
-  page-footer: false
+  page-footer: " "
 
 format:
   html:
