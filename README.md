@@ -16,6 +16,10 @@ Source for [starsim.org](https://starsim.org/). Built with [Eleventy](https://ww
 
 `npm install` is run automatically by `build.sh` and `serve.sh`. No `package-lock.json` is generated (see [.npmrc](.npmrc)).
 
+## Publishing
+
+Done automatically via GitHub Actions.
+
 ## Layout
 
 - [index.md](index.md) — page content and frontmatter (title, nav, hero, footer)
