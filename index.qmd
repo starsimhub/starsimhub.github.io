@@ -7,6 +7,13 @@ include-in-header:
       <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/starsim-horiz.png">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+      <link href="./assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
+      <link href="./assets/css/demo.css" rel="stylesheet" />
+      <link href="./assets/css/prism.css" rel="stylesheet" />
+      <link href="./assets/css/prism-lite.css" rel="stylesheet" />
+      <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
       <meta name="description" content="Starsim is a flexible framework for agent-based modeling of health and disease.">
       <meta property="og:site_name" content="Starsim">
       <meta property="og:title" content="Starsim: Agent-based disease modeling">
@@ -14,19 +21,15 @@ include-in-header:
       <meta property="og:type" content="website">
       <meta property="og:url" content="https://starsim.org/">
       <meta property="og:image" content="https://starsim.org/assets/img/starsim-horiz.png">
-      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NK4K647');</script>
-      <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
-      <link href="./assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
-      <link href="./assets/css/demo.css" rel="stylesheet" />
-      <link href="./assets/css/prism.css" rel="stylesheet" />
-      <link href="./assets/css/prism-lite.css" rel="stylesheet" />
-      <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NK4K647');</script>;
+      <!-- Fonts and icons -->
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300..700&display=swap" rel="stylesheet">
       <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700|Work+Sans|Material+Icons' rel='stylesheet' type='text/css'>
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
       <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <!-- Syntax highlighting -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
       <script>hljs.initHighlightingOnLoad();</script>
@@ -42,15 +45,15 @@ include-in-header:
         }
         .lcell {
             flex: 1;
-            border: 0px solid #ccc;
-            padding: 10px;
-            text-align: right;
+            border: 0px solid #ccc; /* Optional: For visual reference */
+            padding: 10px; /* Optional: For spacing */
+            text-align: right; /* Optional: Center text */
         }
         .rcell {
             flex: 1;
-            border: 0px solid #ccc;
-            padding: 10px;
-            text-align: left;
+            border: 0px solid #ccc; /* Optional: For visual reference */
+            padding: 10px; /* Optional: For spacing */
+            text-align: left; /* Optional: Center text */
         }
         .header_link {
             font-size: 18px;
