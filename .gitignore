@@ -1,7 +1,5 @@
 *.png
 *.ttf
 _site/
-.quarto/
-/.quarto/
 node_modules/
 package-lock.json
