@@ -8,6 +8,7 @@ const H2_STYLE =
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("CNAME");
+  eleventyConfig.addPassthroughCopy("symposium2024");
 
   eleventyConfig.setLibrary("md", md);
 
@@ -202,6 +203,6 @@ ${t.body}
     },
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
-    templateFormats: ["md", "njk", "html"],
+    templateFormats: ["md", "njk"],
   };
 };
