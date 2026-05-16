@@ -1,0 +1,14 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Starsim: Agent-based disease modeling"
+  navbar: false
+  page-footer: false
+
+format:
+  html:
+    theme: none
+    page-layout: custom
+    minimal: true
