@@ -3,3 +3,5 @@
 _site/
 .quarto/
 /.quarto/
+node_modules/
+_eleventy_site/
