@@ -126,7 +126,9 @@ include-in-header:
 ::: {#what .row}
 ::: {.col-md-12 .ml-auto .mr-auto}
 
-## What is Starsim? {.text-center style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;"}
+```{=html}
+<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">What is Starsim?</h2>
+```
 
 ::: {.row}
 ::: {.col-md-9 .ml-auto .mr-auto}
@@ -167,7 +169,9 @@ Starsim is available for both Python and R, and is fully open-source under the M
 ::: {#why .row}
 ::: {.col-md-12 .ml-auto .mr-auto}
 
-## Why Starsim? {.text-center style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;"}
+```{=html}
+<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Why Starsim?</h2>
+```
 
 ::: {.row}
 
@@ -228,7 +232,9 @@ Starsim is a community, not a product. We believe that diversity, transparency, 
 ::: {#installation .row}
 ::: {.col-md-12 .ml-auto .mr-auto}
 
-## Installation {.text-center style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;"}
+```{=html}
+<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Installation</h2>
+```
 
 ::: {.row}
 ::: {.col-md-9 .ml-auto .mr-auto}
@@ -254,42 +260,66 @@ init_starsim()
 
 <!-- ── Examples ──────────────────────────────────────────────── -->
 
-::: {#examples .row}
-::: {.col-md-12 .ml-auto .mr-auto}
+```{=html}
+<section id="examples">
+    <div class="row">
+        <div class="col-md-12 ml-auto mr-auto">
 
-## Examples {.text-center style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;"}
+            <h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Examples</h2>
+            <div class="profile-tabs" style="margin:0px;">
 
-::: {.col-md-9 .ml-auto .mr-auto}
-::: {.panel-tabset}
+                <div class="nav-tabs-navigation col-md-12 ml-auto mr-auto">
+                    <div class="nav-tabs-wrapper">
+                        <ul id="tabs" class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-narrow active" href="#code_basic" data-toggle="tab" role="tab" aria-selected="true"><span class="tablist-text">Simple example</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-narrow" href="#code_scenarios" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">Running scenarios</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-narrow" href="#code_vaccine" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">Custom interventions</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-narrow" href="#code_r" data-toggle="tab" role="tab" aria-selected="false"><span class="tablist-text">R example</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-### Simple example
-
-This is what an extremely simple Starsim simulation looks like:
-
-1. Create a susceptible-infectious-recovered (SIR) disease model with default parameters.
-2. Create a random transmission network between agents (also with default parameters).
-3. Run the simulation and plot the results.
-
-```python
-import starsim as ss
+                <div class="tab-content col-md-9 ml-auto mr-auto" style="padding-left:3px; padding-right:3px;">
+                    <div class="tab-pane active" id="code_basic" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="space-top text-left" style="padding-top:0px;">
+                                <p class="space-top" style="margin-top:0px;">This is what an extremely simple Starsim simulation looks like:</p>
+                                <ol>
+                                    <li>Create a susceptible-infectious-recovered (SIR) disease model with default parameters.</li>
+                                    <li>Create a random transmission network between agents (also with default parameters).</li>
+                                    <li>Run the simulation and plot the results.</li>
+                                </ol>
+<pre><code class="language-python">import starsim as ss
 
 sim = ss.Sim(diseases='sir', networks='random') # Create the sim
 sim.run() # Run the sim
 sim.plot() # Plot the results
-```
+</code></pre>
+<img src="assets/img/example-basic.png" width="100%" class="card-top-shadow text-center">
+                            </div>
+                        </div>
+                    </div>
 
-![](assets/img/example-basic.png){width="100%" .card-top-shadow}
-
-### Running scenarios
-
-You can easily customize model parameters, and run simulations in parallel:
-
-1. Create a dictionary defining the parameters of the simulation.
-2. Modify only those parameters you want to differ between scenarios.
-3. Run the simulations in parallel, and plot the results you are interested in.
-
-```python
-import starsim as ss
+                    <div class="tab-pane" id="code_scenarios" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="space-top text-left" style="padding-top:0px;">
+                                You can easily customize model parameters, and run simulations in parallel:<br/>
+                                <ol>
+                                    <li>Create a dictionary defining the parameters of the simulation.</li>
+                                    <li>Modify only those parameters you want to differ between scenarios.</li>
+                                    <li>Run the simulations in parallel, and plot the results you are interested in.</li>
+                                </ol>
+<pre><code class="language-python">import starsim as ss
 import sciris as sc
 
 # Set the parameters for the baseline simulation
@@ -317,16 +347,19 @@ s2 = ss.Sim(pars2, label='High transmission')
 # Run and plot the simulations
 msim = ss.parallel(s1, s2)
 msim.plot('sis_n_infected')
-```
+</code></pre>
+<img src="assets/img/example-scenarios.png" width="100%" class="card-top-shadow text-center">
+                            </div>
+                        </div>
+                    </div>
 
-![](assets/img/example-scenarios.png){width="100%" .card-top-shadow}
-
-### Custom interventions
-
-Everything in Starsim can be customized, including diseases, demographics, and interventions. This example shows how to write custom interventions, namely a vaccine product and vaccination campaign:
-
-```python
-import starsim as ss
+                    <div class="tab-pane" id="code_vaccine" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="space-top text-left" style="padding-top:0px;">
+                                Everything in Starsim can be customized, including diseases, demographics, and intervention.
+                                This example shows how to write custom interventions, namely a vaccine product and vaccination campaign:<br/>
+<pre><code class="language-python">import starsim as ss
 import matplotlib.pyplot as plt
 
 # Define the simulation parameters
@@ -373,16 +406,18 @@ plt.title('Vaccine impact')
 plt.xlabel('Year')
 plt.ylabel('Prevalence')
 plt.legend()
-```
+</code></pre>
+<img src="assets/img/example-vaccine.png" width="100%" class="card-top-shadow text-center">
+                            </div>
+                        </div>
+                    </div>
 
-![](assets/img/example-vaccine.png){width="100%" .card-top-shadow}
-
-### R example
-
-Starsim can be run from R just as easily as from Python:
-
-```r
-# Load Starsim
+                    <div class="tab-pane" id="code_r" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="space-top text-left" style="padding-top:0px;">
+                                <p class="space-top" style="margin-top:0px;">Starsim can be run from R just as easily as from Python:</p>
+<pre><code class="language-r"># Load Starsim
 library(starsim)
 load_starsim()
 
@@ -406,21 +441,28 @@ pars <- list(
 sim <- ss$Sim(pars)
 sim$run()
 sim$diseases$sir$plot()
+</code></pre>
+<img src="assets/img/example-r.png" width="100%" class="card-top-shadow text-center">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>  <!-- end of tab-content-->
+            </div>  <!-- end of profile-tabs -->
+        </div>  <!-- end of col -->
+
+    </div>  <!-- end of row -->
+</section>
 ```
-
-![](assets/img/example-r.png){width="100%" .card-top-shadow}
-
-:::
-:::
-:::
-:::
 
 <!-- ── Models ────────────────────────────────────────────────── -->
 
 ::: {#models .row}
 ::: {.col-md-12 .ml-auto .mr-auto}
 
-## Models {.text-center style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;"}
+```{=html}
+<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Models</h2>
+```
 
 ::: {.row}
 ::: {.col-md-9 .ml-auto .mr-auto}
@@ -441,7 +483,9 @@ Key models include [STIsim](https://stisim.org) (which includes HIVsim), [HPVsim
 ::: {#events .row}
 ::: {.col-md-12 .ml-auto .mr-auto}
 
-## Events {.text-center style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;"}
+```{=html}
+<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Events</h2>
+```
 
 ::: {.row}
 ::: {.col-md-9 .ml-auto .mr-auto}
@@ -538,7 +582,9 @@ In collaboration with the [African Population & Health Research Center](https://
 ::: {#publications .row}
 ::: {.col-md-12 .ml-auto .mr-auto}
 
-## Publications {.text-center style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;"}
+```{=html}
+<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Publications</h2>
+```
 
 Starsim has not yet been published. But if you want to cite it, please use:
 
@@ -580,7 +626,9 @@ Kerr CC, Stuart RM, Mistry D, Abeysuriya RG, Cohen JA, George L, Jastrzebski M, 
 ::: {#contact .row}
 ::: {.col-md-12 .ml-auto .mr-auto}
 
-## Contact {.text-center style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;"}
+```{=html}
+<h2 class="text-center" style="padding-top:80px; margin-top:-20px; padding-bottom:20px; font-weight:bold; color:#333333;">Contact</h2>
+```
 
 Have questions? Want to collaborate? We'd love to hear from you!
 

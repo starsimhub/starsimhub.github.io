@@ -14,3 +14,4 @@ format:
     theme: none
     page-layout: custom
     minimal: true
+    section-divs: false
