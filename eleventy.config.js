@@ -196,7 +196,7 @@ ${t.body}
   return {
     dir: {
       input: ".",
-      output: "_eleventy_site",
+      output: "_site",
       includes: "",
       layouts: "",
     },

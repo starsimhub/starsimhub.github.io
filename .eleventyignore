@@ -1,0 +1,14 @@
+node_modules
+_site
+_eleventy_site
+.quarto
+index.qmd
+index.html
+index_orig.html
+base.njk
+README.md
+LICENSE
+markdown-experiments
+symposium2024
+logo
+*.png
