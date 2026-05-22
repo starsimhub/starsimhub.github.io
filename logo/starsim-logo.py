@@ -5,6 +5,7 @@ with a black asterisk (for "*sim") in the middle, that also
 looks like coordinate axes.
 """
 
+import sys
 import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
@@ -14,12 +15,10 @@ color_options = sc.objdict(
     mid = sc.objdict(ast='#555555', spk='#1c8a6c', sh='#ffc12f'),
     dark = sc.objdict(ast='#dddddd', spk='#135e4a', sh='#ffc12f'),
 )
-marker = [None, '$⬢$'][0]
-
 
 class StarsimLogo(sc.prettyobj):
 
-    def __init__(self, colkey='light', marker=marker):
+    def __init__(self, colkey='light'):
         self.seed = 3
         self.cs = 1.8
         self.dsp = 1.0
@@ -32,21 +31,20 @@ class StarsimLogo(sc.prettyobj):
         self.n_ast = 6
         self.n_sh = 12
         self.n_spk = 6
-        self.n_out = 18
         self.lw = 5
         self.x = sc.autolist()
         self.y = sc.autolist()
         self.s = sc.autolist()
         self.c = sc.autolist()
         self.lines = sc.autolist()
-        np.random.seed(self.seed)
         self.xy_sp = sc.autolist()
-        self.xy_sh = sc.autolist()
+        np.random.seed(self.seed)
         self.make(colkey)
         return
 
     @property
     def df(self):
+        """ Convert to dataframe """
         return sc.dataframe(x=self.x, y=self.y, s=self.s, c=self.c)
 
     def p2e(self, r, ang):
@@ -56,20 +54,8 @@ class StarsimLogo(sc.prettyobj):
         y = r * np.sin(ang)
         return x, y
 
-    def e2p(self, x=None, y=None):
-        """ Convert euclidean to polar coordinates """
-        if x is None:
-            x = self.x
-        if y is None:
-            y = self.y
-        r = np.sqrt(x**2 + y**2)
-        ang = np.arctan2(y, x) / (2*np.pi)
-        return r, ang
-
-    def xy(self):
-        return self.x, self.y
-
     def add_dot(self, x, y, s=None, c=None):
+        """ Adds a single dot to the list of dots """
         self.x.append(x)
         self.y.append(y)
         self.s.append(s)
@@ -77,10 +63,12 @@ class StarsimLogo(sc.prettyobj):
         return
 
     def add_line(self, i, j, c=None):
+        """ Adds a single line to the list of lines """
         self.lines.append([i, j, c])
         return
 
     def make_asterisk(self):
+        """ Make the asterisk in the middle of the logo """
         self.add_dot(0, 0, self.cs, self.cols.core)
         for i in range(self.n_ast):
             ang = i/self.n_ast + self.ang
@@ -93,6 +81,7 @@ class StarsimLogo(sc.prettyobj):
         return
 
     def make_spikes(self, perspective=1.0, make=True):
+        """ Make the spike-like projections from the center """
         for j in range(1):
             f = perspective**(j+1)
             reg = self.dsp
@@ -122,18 +111,15 @@ class StarsimLogo(sc.prettyobj):
         return
 
     def make_shell(self):
+        """" Make the paler dots that the spikes project into """
         self.make_spikes(make=False)
-        for j in range(1):
-            n = [self.n_sh, self.n_out][j]
-            r = [self.r_sh, self.r_spk][j]
-            for i in range(n):
-                ang = i/n + self.ang
-                x, y = self.p2e(r, ang)
-                size = 0
-                if (x,y) not in self.xy_sp:
-                    size = self.dsh
-                    self.xy_sh += (x,y)
-                self.add_dot(x, y, size, self.cols.sh)
+        n = self.n_sh
+        r = self.r_sh
+        for i in range(n):
+            ang = i/n + self.ang
+            x, y = self.p2e(r, ang)
+            size = 0 if (x,y) in self.xy_sp else self.dsh
+            self.add_dot(x, y, size, self.cols.sh)
 
         for path in [
                 [3,10,2],
@@ -175,7 +161,7 @@ class StarsimLogo(sc.prettyobj):
         df = self.df
 
         # Plot dots
-        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c, marker=marker)
+        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c, marker=None)
         used = set()
         if debug:
             for i in range(len(df)):
@@ -216,7 +202,7 @@ class StarsimLogo(sc.prettyobj):
             ax2.axhline(0.5)
 
         # Make logo
-        self.logo(save=False, ax=ax1)
+        self.plot_icon(save=False, ax=ax1)
 
         # Title
         sc.fonts(add='fonts/KumbhSans-ExtraBold.ttf', use=True)
@@ -233,18 +219,23 @@ class StarsimLogo(sc.prettyobj):
     def make_all(self, save=True, debug=False):
         for colkey in ['light', 'mid', 'dark']:
             self.make(colkey)
-            f1 = self.logo(save=save, debug=debug)
-            f2 = self.full(save=save, debug=debug)
+            f1 = self.plot_icon(save=save, debug=debug)
+            f2 = self.plot_full(save=save, debug=debug)
         return f1,f2
 
 
 if __name__ == '__main__':
 
-    sc.options(interactive=False)
+    args = sys.argv[1:]
 
-    ssl = StarsimLogo()
-
-    # dots.logo(debug=0)
-    # dots.full(debug=1)
-    dots.both(debug=0)
+    if 'clean' in args:
+        what = '*.png *.svg *.ico'
+        files = sc.runcommand(f'ls -1 {what}')
+        out = input(f'Clean files? (enter=yes)\n{files}')
+        if not out:
+            sc.runcommand(f'rm -v {what}', printoutput=True)
+    else:
+        sc.options(interactive=False)
+        ssl = StarsimLogo()
+        ssl.make_all(debug=0)
 
