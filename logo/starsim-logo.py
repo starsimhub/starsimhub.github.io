@@ -10,15 +10,18 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
-color_options = sc.objdict(
+COLORS = sc.objdict(
     light = sc.objdict(ast='k', spk='#135e4a', sh='#ffc12f'),
     mid = sc.objdict(ast='#555555', spk='#1c8a6c', sh='#ffc12f'),
     dark = sc.objdict(ast='#dddddd', spk='#135e4a', sh='#ffc12f'),
 )
 
+FONT = 'fonts/KumbhSans-ExtraBold.ttf'
+
 class StarsimLogo(sc.prettyobj):
 
     def __init__(self, colkey='light'):
+        self.colkey = colkey
         self.seed = 3
         self.cs = 1.8
         self.dsp = 1.0
@@ -38,10 +41,16 @@ class StarsimLogo(sc.prettyobj):
         self.c = sc.autolist()
         self.lines = sc.autolist()
         self.xy_sp = sc.autolist()
-        np.random.seed(self.seed)
-        self.make(colkey)
+        self.initialize()
         return
-
+    
+    def initialize(self):
+        """ Run other tasks to finish initialization """
+        sc.fonts(add=FONT, use=True)
+        np.random.seed(self.seed)
+        self.make(self.colkey)
+        return
+    
     @property
     def df(self):
         """ Convert to dataframe """
@@ -138,7 +147,7 @@ class StarsimLogo(sc.prettyobj):
     def set_mode(self, colkey):
         """ Set light or dark mode """
         self.colkey = colkey
-        self.cols = color_options[colkey]
+        self.cols = COLORS[colkey]
         if 'core' not in self.cols:
             self.cols.core = self.cols.ast
         self.facecolor = 'k' if colkey == 'dark' else 'w'
@@ -152,7 +161,7 @@ class StarsimLogo(sc.prettyobj):
         self.make_spikes()
         return
 
-    def plot_icon(self, save=True, debug=False, ax=None):
+    def plot_icon(self, save=True, show=None, debug=False, ax=None):
         if ax is None:
             fig = plt.figure(figsize=[4.5]*2, dpi=100, facecolor=self.facecolor)
             ax = fig.add_axes([0, 0, 1, 1])
@@ -186,10 +195,11 @@ class StarsimLogo(sc.prettyobj):
             sc.runcommand(f'trim {fn}')
             if self.colkey == 'light':
                 sc.runcommand(f'convert {fn} -resize 32x32 favicon.ico')
-        plt.show()
+        if show or (show is None and not save):
+            plt.show()
         return fig
 
-    def plot_full(self, save=True, debug=False):
+    def plot_full(self, save=True, show=None, debug=False):
         """ Full logo, with text """
         # Setup
         fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=self.facecolor)
@@ -202,10 +212,9 @@ class StarsimLogo(sc.prettyobj):
             ax2.axhline(0.5)
 
         # Make logo
-        self.plot_icon(save=False, ax=ax1)
+        self.plot_icon(save=False, show=False, ax=ax1)
 
         # Title
-        sc.fonts(add='fonts/KumbhSans-ExtraBold.ttf', use=True)
         ax2.text(-0.055, 0.45, 'Starsim', size=160, verticalalignment='center', color=self.textcolor)
         ax2.axis('off')
 
@@ -213,11 +222,13 @@ class StarsimLogo(sc.prettyobj):
             fn = f'starsim-logo-{self.colkey}-full.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
-        plt.show()
+        if show or (show is None and not save):
+            plt.show()
         return fig
 
     def make_all(self, save=True, debug=False):
         for colkey in ['light', 'mid', 'dark']:
+            sc.heading(f'Working on {colkey}')
             self.make(colkey)
             f1 = self.plot_icon(save=save, debug=debug)
             f2 = self.plot_full(save=save, debug=debug)
