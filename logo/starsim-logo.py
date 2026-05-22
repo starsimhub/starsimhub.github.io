@@ -3,6 +3,12 @@
 Create the Starsim logo: a circular virus-like network
 with a black asterisk (for "*sim") in the middle, that also
 looks like coordinate axes.
+
+Usage:
+    ./starsim-logo.py clean # Clean up all generated files
+    ./starsim-logo.py make  # Make all logos
+
+Only works on Linux; requires Inkscape >1.0 and ImageMagick (for trimming and resizing).
 """
 
 import sys
@@ -10,13 +16,37 @@ import numpy as np
 import sciris as sc
 import matplotlib.pyplot as plt
 
+# Names of packages to make logos for
+NAMES = [
+    'Starsim',
+    'Covasim',
+    'FPsim',
+    'HPVsim',
+    'STIsim',
+    'TBsim',
+]
+
+# Extensions
+EXTS = ['png', 'svg']
+
+# Colors to use
 COLORS = sc.objdict(
     light = sc.objdict(ast='k', spk='#135e4a', sh='#ffc12f'),
     mid = sc.objdict(ast='#555555', spk='#1c8a6c', sh='#ffc12f'),
     dark = sc.objdict(ast='#dddddd', spk='#135e4a', sh='#ffc12f'),
 )
 
+# Font to use for the logos
 FONT = 'fonts/KumbhSans-ExtraBold.ttf'
+
+
+def trim(fn):
+    """ Trim a PNG or SVG file """
+    if fn.endswith('.png'):
+        sc.runcommand(f'convert "{fn}" -trim "{fn}"')
+    elif fn.endswith('.svg'):
+        sc.runcommand(f'inkscape --export-area-drawing --export-plain-svg --export-overwrite {fn}')
+    return
 
 class StarsimLogo(sc.prettyobj):
 
@@ -190,40 +220,52 @@ class StarsimLogo(sc.prettyobj):
         ax.set_ylim(bottom=-1, top=1)
         ax.axis('off')
         if save:
-            fn = f'starsim-icon-{self.colkey}.png'
-            sc.savefig(fn, transparent=True)
-            sc.runcommand(f'trim {fn}')
+            base = f'starsim-icon-{self.colkey}'
+            print(f'Saving {base}...')
+            fns = [f'{base}.{ext}' for ext in EXTS]
+            for fn in fns:
+                sc.savefig(fn, transparent=True)
+                trim(fn)
             if self.colkey == 'light':
-                sc.runcommand(f'convert {fn} -resize 32x32 favicon.ico')
+                sc.runcommand(f'convert {fns[0]} -resize 32x32 favicon.ico') # Brittle: assumes png is first
+            plt.close(fig)
         if show or (show is None and not save):
             plt.show()
         return fig
 
-    def plot_full(self, save=True, show=None, debug=False):
+    def plot_full(self, save=True, show=None, debug=False, names=NAMES):
         """ Full logo, with text """
-        # Setup
-        fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=self.facecolor)
-        ax1 = fig.add_axes([0, 0, 1/4, 1])
-        ax2 = fig.add_axes([1/4, 0, 3/4, 1])
-        ax2.set_xlim(left=0, right=1)
-        ax2.set_ylim(bottom=0, top=1)
-        if debug:
-            ax1.axhline()
-            ax2.axhline(0.5)
 
-        # Make logo
-        self.plot_icon(save=False, show=False, ax=ax1)
+        for name in names:
 
-        # Title
-        ax2.text(-0.055, 0.45, 'Starsim', size=160, verticalalignment='center', color=self.textcolor)
-        ax2.axis('off')
+            # Setup
+            fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=self.facecolor)
+            ax1 = fig.add_axes([0, 0, 1/4, 1])
+            ax2 = fig.add_axes([1/4, 0, 3/4, 1])
+            ax2.set_xlim(left=0, right=1)
+            ax2.set_ylim(bottom=0, top=1)
+            if debug:
+                ax1.axhline()
+                ax2.axhline(0.5)
 
-        if save:
-            fn = f'starsim-logo-{self.colkey}-full.png'
-            sc.savefig(fn, transparent=True)
-            sc.runcommand(f'trim {fn}')
-        if show or (show is None and not save):
-            plt.show()
+            # Make icon
+            fig = self.plot_icon(save=False, show=False, ax=ax1)
+
+            # Title
+            ax2.text(-0.055, 0.45, name, size=160, verticalalignment='center', color=self.textcolor)
+            ax2.axis('off')
+
+            if save:
+                base = f'{name.lower()}-logo-{self.colkey}'
+                print(f'Saving {base}...')
+                fns = [f'{base}.{ext}' for ext in EXTS]
+                for fn in fns:
+                    sc.savefig(fn, transparent=True)
+                    trim(fn)
+                plt.close(fig)
+            if show or (show is None and not save):
+                plt.show()
+                
         return fig
 
     def make_all(self, save=True, debug=False):
@@ -237,6 +279,8 @@ class StarsimLogo(sc.prettyobj):
 
 if __name__ == '__main__':
 
+    T = sc.timer()
+
     args = sys.argv[1:]
 
     if 'clean' in args:
@@ -245,8 +289,12 @@ if __name__ == '__main__':
         out = input(f'Clean files? (enter=yes)\n{files}')
         if not out:
             sc.runcommand(f'rm -v {what}', printoutput=True)
-    else:
+    elif 'make' in args:
         sc.options(interactive=False)
         ssl = StarsimLogo()
         ssl.make_all(debug=0)
+    else:
+        print(__doc__)
+
+    T.toc()
 
