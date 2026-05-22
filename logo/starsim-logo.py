@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-Circle-virus network with gold asterisk in the middle.
-
-Now with lines.
+Create the Starsim logo: a circular virus-like network
+with a black asterisk (for "*sim") in the middle, that also
+looks like coordinate axes.
 """
 
 import numpy as np
@@ -198,7 +198,8 @@ class StarsimLogo(sc.prettyobj):
             fn = f'starsim-icon-{self.colkey}.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
-            sc.runcommand()
+            if self.colkey == 'light':
+                sc.runcommand(f'convert {fn} -resize 32x32 favicon.ico')
         plt.show()
         return fig
 
