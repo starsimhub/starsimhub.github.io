@@ -7,6 +7,7 @@ looks like coordinate axes.
 Usage:
     ./starsim-logo.py clean # Clean up all generated files
     ./starsim-logo.py make  # Make all logos
+    ./starsim-logo.py debug # Make a single logo and show it
 
 Only works on Linux; requires cairosvg and ImageMagick (for trimming and resizing).
 """
@@ -46,6 +47,9 @@ COLORS = sc.objdict(
 # Font to use for the logos
 FONT = 'fonts/KumbhSans-ExtraBold.ttf'
 
+# DPI to save figures at
+DPI = 150
+
 
 def trim(fn):
     """ Trim a PNG or SVG file """
@@ -56,6 +60,88 @@ def trim(fn):
     else:
         raise ValueError(f'Cannot trim {fn} (not a PNG or SVG)')
     return
+
+
+
+def trim_svg(input_file, output_file=None, padding=0, scale=4):
+    """
+    Trim an SVG canvas to the bounds of visible content.
+
+    Args:
+        input_file (str|Path): Input SVG file.
+        output_file (str|Path|None): Output SVG file. If None, overwrite input_file.
+        padding (float): Padding to add around content, in SVG user units.
+        scale (float): Render scale for detecting bounds. Higher values are slower but improve accuracy for thin lines
+
+    Returns:
+        Path: output path
+
+    Written by ChatGPT
+    """
+    input_file = sc.path(input_file)
+    output_file = sc.path(output_file) if output_file else input_file
+
+    text = input_file.read_text()
+
+    # Read viewBox
+    m = re.search(r'viewBox="([^"]+)"', text)
+    if not m:
+        raise ValueError(f"{input_file}: SVG must contain a viewBox")
+
+    vx, vy, vw, vh = map(
+        float,
+        m.group(1).replace(",", " ").split()
+    )
+
+    # Render to PNG
+    png = cairosvg.svg2png(
+        bytestring=text.encode(),
+        scale=scale
+    )
+
+    im = Image.open(io.BytesIO(png)).convert("RGBA")
+    bbox = im.getchannel("A").getbbox()
+
+    if not bbox:
+        raise ValueError(f"{input_file}: no visible content found")
+
+    l, t, r, b = bbox
+
+    # Pixel → SVG coordinate conversion
+    ux = vw / im.width
+    uy = vh / im.height
+
+    nx = vx + l * ux - padding
+    ny = vy + t * uy - padding
+    nw = (r - l) * ux + 2 * padding
+    nh = (b - t) * uy + 2 * padding
+
+    new_viewbox = f"{nx:g} {ny:g} {nw:g} {nh:g}"
+
+    # Rewrite root attrs
+    text = re.sub(
+        r'viewBox="[^"]+"',
+        f'viewBox="{new_viewbox}"',
+        text,
+        count=1,
+    )
+
+    text = re.sub(
+        r'width="[^"]+"',
+        f'width="{nw:g}pt"',
+        text,
+        count=1,
+    )
+
+    text = re.sub(
+        r'height="[^"]+"',
+        f'height="{nh:g}pt"',
+        text,
+        count=1,
+    )
+
+    output_file.write_text(text)
+    return output_file
 
 class StarsimLogo(sc.prettyobj):
 
@@ -209,7 +295,7 @@ class StarsimLogo(sc.prettyobj):
         df = self.df
 
         # Plot dots
-        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c, marker=None)
+        ax.scatter(df.x, df.y, s=df.s*self.ms, c=df.c, marker=None, linewidths=0)
         used = set()
         if debug:
             for i in range(len(df)):
@@ -233,7 +319,7 @@ class StarsimLogo(sc.prettyobj):
             print(f'Saving {base}...')
             fns = [f'{base}.{ext}' for ext in EXTS]
             for fn in fns:
-                sc.savefig(fn, transparent=True)
+                sc.savefig(fn, transparent=True, dpi=DPI)
                 trim(fn)
             if self.colkey == 'light':
                 sc.runcommand(f'convert {fns[0]} -resize 32x32 favicon.ico') # Brittle: assumes png is first
@@ -269,7 +355,7 @@ class StarsimLogo(sc.prettyobj):
                 print(f'Saving {base}...')
                 fns = [f'{base}.{ext}' for ext in EXTS]
                 for fn in fns:
-                    sc.savefig(fn, transparent=True)
+                    sc.savefig(fn, transparent=True, dpi=DPI)
                     trim(fn)
                 plt.close(fig)
             if show or (show is None and not save):
@@ -277,94 +363,13 @@ class StarsimLogo(sc.prettyobj):
                 
         return fig
 
-    def make_all(self, save=True, debug=False):
-        for colkey in ['light', 'mid', 'dark']:
+    def make_all(self, save=True, show=None, debug=False, colkeys=COLORS.keys(), names=NAMES):
+        for colkey in colkeys:
             sc.heading(f'Working on {colkey}')
             self.make(colkey)
-            f1 = self.plot_icon(save=save, debug=debug)
-            f2 = self.plot_full(save=save, debug=debug)
+            f1 = self.plot_icon(save=save, show=plt.show, debug=debug)
+            f2 = self.plot_full(save=save, show=show, debug=debug, names=names)
         return f1,f2
-
-
-def trim_svg(input_file, output_file=None, padding=0, scale=4):
-    """
-    Trim an SVG canvas to the bounds of visible content.
-
-    Args:
-        input_file (str|Path): Input SVG file.
-        output_file (str|Path|None): Output SVG file. If None, overwrite input_file.
-        padding (float): Padding to add around content, in SVG user units.
-        scale (float): Render scale for detecting bounds. Higher values are slower but improve accuracy for thin lines
-
-    Returns:
-        Path: output path
-
-    Written by ChatGPT
-    """
-    input_file = sc.path(input_file)
-    output_file = sc.path(output_file) if output_file else input_file
-
-    text = input_file.read_text()
-
-    # Read viewBox
-    m = re.search(r'viewBox="([^"]+)"', text)
-    if not m:
-        raise ValueError(f"{input_file}: SVG must contain a viewBox")
-
-    vx, vy, vw, vh = map(
-        float,
-        m.group(1).replace(",", " ").split()
-    )
-
-    # Render to PNG
-    png = cairosvg.svg2png(
-        bytestring=text.encode(),
-        scale=scale
-    )
-
-    im = Image.open(io.BytesIO(png)).convert("RGBA")
-    bbox = im.getchannel("A").getbbox()
-
-    if not bbox:
-        raise ValueError(f"{input_file}: no visible content found")
-
-    l, t, r, b = bbox
-
-    # Pixel → SVG coordinate conversion
-    ux = vw / im.width
-    uy = vh / im.height
-
-    nx = vx + l * ux - padding
-    ny = vy + t * uy - padding
-    nw = (r - l) * ux + 2 * padding
-    nh = (b - t) * uy + 2 * padding
-
-    new_viewbox = f"{nx:g} {ny:g} {nw:g} {nh:g}"
-
-    # Rewrite root attrs
-    text = re.sub(
-        r'viewBox="[^"]+"',
-        f'viewBox="{new_viewbox}"',
-        text,
-        count=1,
-    )
-
-    text = re.sub(
-        r'width="[^"]+"',
-        f'width="{nw:g}pt"',
-        text,
-        count=1,
-    )
-
-    text = re.sub(
-        r'height="[^"]+"',
-        f'height="{nh:g}pt"',
-        text,
-        count=1,
-    )
-
-    output_file.write_text(text)
-    return output_file
 
 
 if __name__ == '__main__':
@@ -383,6 +388,10 @@ if __name__ == '__main__':
         sc.options(interactive=False)
         ssl = StarsimLogo()
         ssl.make_all(debug=0)
+    elif 'debug' in args:
+        sc.options(interactive=True)
+        ssl = StarsimLogo()
+        ssl.make_all(save=False, show=True, debug=False, names=['Starsim'])
     else:
         print(__doc__)
 
