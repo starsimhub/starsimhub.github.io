@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Circle-virus network with gold asterisk in the middle.
 
@@ -16,7 +17,7 @@ color_options = sc.objdict(
 marker = [None, '$⬢$'][0]
 
 
-class Dots(sc.prettyobj):
+class StarsimLogo(sc.prettyobj):
 
     def __init__(self, colkey='light', marker=marker):
         self.seed = 3
@@ -165,7 +166,7 @@ class Dots(sc.prettyobj):
         self.make_spikes()
         return
 
-    def logo(self, save=True, debug=False, ax=None):
+    def plot_icon(self, save=True, debug=False, ax=None):
         if ax is None:
             fig = plt.figure(figsize=[4.5]*2, dpi=100, facecolor=self.facecolor)
             ax = fig.add_axes([0, 0, 1, 1])
@@ -194,13 +195,14 @@ class Dots(sc.prettyobj):
         ax.set_ylim(bottom=-1, top=1)
         ax.axis('off')
         if save:
-            fn = f'starsim-logo-2025b-{self.colkey}.png'
+            fn = f'starsim-icon-{self.colkey}.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
+            sc.runcommand()
         plt.show()
         return fig
 
-    def full(self, save=True, debug=False):
+    def plot_full(self, save=True, debug=False):
         """ Full logo, with text """
         # Setup
         fig = plt.figure(figsize=[4.5*4, 4.5], dpi=100, facecolor=self.facecolor)
@@ -221,13 +223,13 @@ class Dots(sc.prettyobj):
         ax2.axis('off')
 
         if save:
-            fn = f'starsim-logo-2025b-{self.colkey}-full.png'
+            fn = f'starsim-logo-{self.colkey}-full.png'
             sc.savefig(fn, transparent=True)
             sc.runcommand(f'trim {fn}')
         plt.show()
         return fig
 
-    def both(self, save=True, debug=False):
+    def make_all(self, save=True, debug=False):
         for colkey in ['light', 'mid', 'dark']:
             self.make(colkey)
             f1 = self.logo(save=save, debug=debug)
@@ -236,7 +238,10 @@ class Dots(sc.prettyobj):
 
 
 if __name__ == '__main__':
-    dots = Dots()
+
+    sc.options(interactive=False)
+
+    ssl = StarsimLogo()
 
     # dots.logo(debug=0)
     # dots.full(debug=1)
