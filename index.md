@@ -38,7 +38,7 @@ Starsim is available for both Python and R, and is fully open-source under the M
 
 {% topbuttons %}
 {% topbtn "Docs", "https://docs.starsim.org", "octicons/code" %}
-{% topbtn "Tutorials", "https://docs.idmod.org/projects/starsim/en/latest/tutorials.html", "fontawesome/lightbulb-o", "tight" %}
+{% topbtn "Tutorials", "https://docs.starsim.org/tutorials.html", "fontawesome/lightbulb-o", "tight" %}
 {% topbtn "Code", "https://github.com/starsimhub/starsim", "octicons/mark-github" %}
 {% topbtn "R Docs", "https://r.starsim.org", "octicons/graph" %}
 {% topbtn "AI", "https://github.com/starsimhub/starsim_ai", "octicons/north-star" %}
