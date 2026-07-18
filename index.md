@@ -224,33 +224,47 @@ Key models include [STIsim](https://stisim.org) (which includes HIVsim), [HPVsim
 
 {% section "events", "Events" %}
 {% eventlist "Upcoming events" %}
-{% event "Talk @ SciPy 2026", "Jul. 13-19, 2026: Minneapolis, USA" %}
-A talk on Starsim-AI performance will be given at the [SciPy 2026](https://www.scipy2026.scipy.org/) (Scientific Python) conference.
+
+{% event "", "" %}
+No upcoming events. Please check back later!
 {% endevent %}
+
 {% endeventlist %}
 
 {% eventlist "Past events" %}
+
+{% event "Talk @ SciPy 2026", "Jul. 16, 2026: Minneapolis, USA" %}
+A talk on Starsim-AI evals was given at the [SciPy 2026](https://www.scipy2026.scipy.org/) (Scientific Python) conference. Slides are available [here](https://docs.google.com/presentation/d/1lDWTjoqncwmQgzriDvIe1RfERs9r9L0j9NS341jFVEE/edit?slide=id.g315f9997abd_0_22).
+{% endevent %}
+
 {% event "Talk @ EPIDEMICS 10", "Nov. 30-Dec. 3, 2025: San Diego, USA" %}
 A talk on Starsim was given at the [EPIDEMICS 10](https://www.elsevier.com/events/conferences/all/international-conference-on-infectious-disease-dynamics) conference (10th International Conference on Infectious Disease Dynamics). Several other talks and posters using Starsim were also presented. Slides are available [here](https://docs.google.com/presentation/d/1-gwTMl1OElZNIYcLfpCemfkuo5VhU_hOWvt6YfH49Q8/edit?usp=sharing).
 {% endevent %}
+
 {% event "Talk @ MIDAS 2024", "Nov. 18, 2024: Silver Spring, USA" %}
 An introductory talk on Starsim was given at the 2024 [MIDAS Conference](https://midasnetwork.us/midas-2024/). Slides are available [here](https://docs.google.com/presentation/d/160gNQ89wNaZf9XTjhj5-H3TMB--vX5FnnnqQz2QgdL8/edit).
 {% endevent %}
+
 {% event "Talk @ IDM Conference 2024", "Nov. 8, 2024: Bangkok, Thailand" %}
 A talk introducing Starsim was given at the 2024 [Infectious Disease Modelling Conference](https://idmconference.net). Slides are available [here](https://docs.google.com/presentation/d/1bVG_HJxoT07UG6YqR5vaH8jDtt2VsgsSOHkuEpVvww0/edit).
 {% endevent %}
+
 {% event "Starsim Learning Day @ IDM Symposium", "Oct. 3, 2024: Seattle, USA" %}
 We conducted a full-day information and training session on Starsim as part of the 2024 IDM Symposium. Course content is available [here](https://learningday2024.starsim.org).
 {% endevent %}
+
 {% event "Poster @ AIDS 2024", "Jul. 25, 2024: Munich, Germany" %}
 A poster on using Starsim to model HIV-STI coinfection was presented at the [AIDS 2024](https://www.iasociety.org/conferences/aids2024) conference. The poster is available [here](https://docs.google.com/presentation/d/1ObX11ExrtueXWAsPqPhV01SRoRLXDr5dB2AtKKhcZuk/edit).
 {% endevent %}
+
 {% event "Starsim Launch @ SciPy 2024", "Jul. 10, 2024: Tacoma, USA" %}
 Starsim v1.0 was officially launched at the [SciPy 2024](https://www.scipy2024.scipy.org/) conference. The slides from the talk are available [here](https://docs.google.com/presentation/d/13kWAiYRiPvlWXDitE5UVNlsrxOMPjG1sSPd2gsMqoQU/edit).
 {% endevent %}
+
 {% event "Agent-Based Modelling Training", "Apr. 8-19, 2024: Nairobi, Kenya" %}
 In collaboration with the [African Population & Health Research Center](https://aphrc.org/) (APHRC) and the [Center for Epidemiological Modelling and Analysis](https://cema.africa/) (CEMA), we conducted a workshop on agent-based modeling, including Starsim. The brochure is available [here](https://drive.google.com/file/d/1Ya1S7RvRI3U_EQscRWpmpF7cILTELgAC/view); other materials are available upon request.
 {% endevent %}
+
 {% endeventlist %}
 {% endsection %}
 
